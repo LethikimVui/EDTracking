@@ -1,0 +1,108 @@
+﻿
+@model List<SharedObjects.ValueObjects.VUserRole>;
+@{
+    var Roles = ViewData["roles"] as IEnumerable<SharedObjects.ValueObjects.VRole>;
+
+    ViewData["Title"] = "Admin";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light" style="height:1700px">
+                <div class="portlet-title">
+                    <div class="caption col-md-12">
+                        <span class="caption-subject font-green-sharp bold uppercase">
+                            Administration - User Role
+                        </span>
+                    </div>
+                    <form id="frm-save-debugdata-body">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr class="text-center bold">
+                                    <td>Ntlogin</td>
+                                    <td>Employee Name</td>
+                                    <td>Role</td>
+                                    @*<td>Plant</td>*@
+                                    <td>Workcell</td>
+                                    <td>Created By</td>
+                                    <td>Creation Date</td>
+                                    <td>Updated By</td>
+                                    <td>Update Date</td>
+                                    <td style="width:100px">Modification</td>
+                                </tr>
+                            </thead>
+                            <tbody id="table-data">
+
+                                <tr class="text-center">
+                                    <td>
+                                        <input id="txt-Ntlogin" type="text" class="form-control" data-toggle="modal" href="#modal-search" tyle="height:30px" />
+                                        @*<input id="txt-Ntlogin" type="text" class="form-control" tyle="height:30px" />*@
+                                    </td>
+                                    <td id="txt-userName"></td>
+                                    <td>
+                                        <select class="form-control" id="txt-roleId" required>
+                                            <option value="">--Please Select--</option>                                       
+                                            @foreach (var item in Roles.OrderByDescending(c => c.RoleId).ToList())
+                                            {
+                                                <option value=@item.RoleId>@item.RoleName</option>
+                                            }
+                                        </select>
+                                    </td>
+
+                                    <td>
+                                        <select class="form-control" id="txt-custId">
+                                            <option value="">--Please Select--</option>
+                                            <option value=1>--Please Select 1--</option>
+                                            <option value=2>--Please Select 2--</option>
+                                            <option value=3>--Please Select 3--</option>
+                                            @*@foreach (var item in WCs.OrderByDescending(c => c.CustId).ToList())
+                                                {
+                                                    <option value=@item.CustId>@item.CustomerName</option>
+                                                }*@
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center">
+                                        <a id="btn-add" class="btn default btn-xs purple update" title="Add"> <span class="glyphicon glyphicon-plus"></span></a>
+                                    </td>
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="text-center">
+
+                                        <td id="">@item.Ntlogin</td>
+                                        <td id="">@item.UserName</td>
+                                        <td id="">@item.RoleName</td>
+                                        @*<td id="">@item.Plant</td>*@
+                                       @**<td id="">@item.CustName</td>*@
+                                        <td id="">@item.CreatedBy</td>
+                                        <td id="">@item.CreatedBy</td>
+                                        <td id="">@item.CreationDate</td>
+                                        <td id="">@item.UpdatedBy</td>
+                                        <td id="">@item.UpdateDate</td>
+                                        <td class="text-center">
+                                            <a id="btn-delete" class="btn default btn-xs red delete" data-id="@item.UserRoleId" data-ntlogin="@item.Ntlogin" title="Delete"> <span class="glyphicon glyphicon-remove"></span></a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+<script src="~/js/admin-user-role.js"></script>
+}

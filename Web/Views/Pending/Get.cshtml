@@ -1,0 +1,108 @@
+﻿@model List<SharedObjects.ValueObjects.VPending>;
+@{
+    ViewData["Title"] = "Pending";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12" style="min-height: auto !important;height: auto !important;width: auto !important">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light" style="min-height: auto !important;height: auto !important">
+                <div class="portlet-title">
+
+                    <div class="caption col-md-12">
+                        <span class="caption-subject font-green-sharp bold uppercase">
+                            Pending
+                        </span>
+                    </div>
+                    <form id="frm-save-debugdata-body">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr class="text-center bold">
+                                    <td>WorkWeek</td>
+                                    <td>Workcell</td>
+                                    <td>Part Number</td>
+                                    <td>Date code</td>
+                                    <td>Failure mode</td>
+                                    <td>Root Cause</td>
+                                    <td>Containment Action</td>
+                                    <td>Corrective and Preventive Action</td>
+                                    <td>Qty Impact</td>
+                                    <td>Parts Cosigned or Turnkey</td>
+                                    <td>FA No.</td>
+                                    <td>SQE latest status</td>
+                                    <td>MFR FA Result</td>
+                                    <td>FIA needed</td>
+                                    <td>FIA No.</td>
+                                    <td>Responsible Person</td>                                   
+                                    <td style="width:100px">Modification</td>
+                                </tr>
+                            </thead>
+                            <tbody id="table-data">
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="text-center">
+                                        <td id="">@item.Wwyy</td>
+                                        <td id="">@item.CustName</td>
+                                        <td id="">@item.Pn</td>
+                                        <td id="">@item.Pn</td>
+                                        <td id=""><textarea rows="6" cols="40" disabled>@item.FailureMode</textarea></td>
+                                        <td id=""><textarea rows="6" cols="40" disabled>@item.RootCause</textarea></td>
+                                        <td id=""><textarea rows="6" cols="40" disabled>@item.ContainmentAction</textarea></td>
+                                        <td id=""><textarea rows="6" cols="40" disabled>@item.CorrectiveandPreventiveAction</textarea></td>
+                                        <td id="">@item.Qty</td>
+                                        @if (item.PartsCosignedOrTurnkey == "1")
+                                        {
+                                            <td id="">Parts Cosigned</td>
+                                        }
+                                        else if (item.PartsCosignedOrTurnkey == "2")
+                                        {
+                                            <td id="">Turnkey </td>
+                                        }
+                                        else
+                                        {
+                                            <td id=""></td>
+                                        }
+                                        <td id="">@item.Fano</td>
+                                        <td id="">@item.SqelatestStatus</td>
+                                        <td id="">@item.Mfrfaresult</td>
+                                        @if (item.Fianeeded == "1")
+                                        {
+                                            <td id="">Yes</td>
+                                        }
+                                        else if (item.Fianeeded == "0")
+                                        {
+                                            <td id="">No</td>
+                                        }
+                                        else
+                                        {
+                                            <td id=""></td>
+                                        }
+                                        <td id="">@item.Fiano</td>
+                                        <td id="">@item.ResponsiblePerson</td>
+                                        <td ><input type="text" id="txt-rm-@item.PendingId" class="form-control"/></td>
+
+                                        <td class="text-center">
+                                            <a id="btn-approve" class="btn default btn-xs red" data-id="@item.PendingId" title="Approve"> <span class="glyphicon glyphicon-ok"></span></a>
+                                            <a id="btn-reject" class="btn default btn-xs red" data-id="@item.PendingId" title="Reject"> <span class="glyphicon glyphicon-remove"></span></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/js/ckeditor/ckeditor.js"></script>
+    <script src="~/js/pending.js"></script>
+}
+
