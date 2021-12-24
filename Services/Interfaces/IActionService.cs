@@ -13,5 +13,6 @@ namespace Services.Interfaces
     {
         Task<List<VAction>> Get(int Id);
         Task<ResponseResult> Insert(ActionViewModel model);
+        Task<ResponseResult> Acknowledge(ActionViewModel model);
     }
 }

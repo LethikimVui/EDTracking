@@ -1,14 +1,14 @@
 ﻿$(document).ready(function () {
     $('body').off('click', '#btn-ackowledge').on('click', '#btn-ackowledge', Ackowledge  );
-    $('body').off('click', '#btn-approve').on('click', '#btn-approve', Approve);
+    //$('body').off('click', '#btn-approve').on('click', '#btn-approve', Approve);
     //$('body').off('click', '#btn-submit').on('click', '#btn-submit', Submit);
 
   
     function Ackowledge () {
-        var pendingId = parseInt($(this).data('id'));
+        var actionId = parseInt($(this).data('id'));
         var model = new Object();
 
-        model.PendingId = pendingId;
+        model.ActionId = actionId;
         model.ActionCode = 4; //Ackowledge
         model.Remark = $(`#txt-rm-${pendingId}`).val();
         model.UpdatedBy = '1099969';

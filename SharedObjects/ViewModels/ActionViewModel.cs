@@ -29,5 +29,6 @@ namespace SharedObjects.ViewModels
         public string Remark { get; set; }
         public string UpdatedBy { get; set; }
         public string DateCode { get; set; }
+        public string WeeklyStatus { get; set; }
     }
 }

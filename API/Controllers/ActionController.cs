@@ -36,7 +36,7 @@ namespace API.Controllers
         {
             try
             {
-                await context.Database.ExecuteSqlCommandAsync(SPAction.Action_insert_single, model.ActionId, model.ActionCode, model.DateCode, model.FailureMode, model.RootCause, model.ContainmentAction, model.CorrectiveandPreventiveAction, model.PartsCosignedOrTurnkey, model.Fano, model.SqelatestStatus, model.Mfrfaresult, model.Fianeeded, model.Fiano, model.ResponsiblePerson, model.Remark, model.UpdatedBy);
+                await context.Database.ExecuteSqlCommandAsync(SPAction.Action_insert_single, model.ActionId, model.ActionCode, model.DateCode, model.FailureMode, model.RootCause, model.ContainmentAction, model.CorrectiveandPreventiveAction, model.PartsCosignedOrTurnkey, model.Fano, model.SqelatestStatus, model.Mfrfaresult, model.Fianeeded, model.Fiano, model.ResponsiblePerson, model.Remark, model.WeeklyStatus, model.UpdatedBy);
                 return Ok(new ResponseResult(200));
             }
             catch (Exception)
@@ -45,7 +45,21 @@ namespace API.Controllers
             }
 
         }
+        [HttpPost("Acknowledge")]
+        [Obsolete]
+        public async Task<IActionResult> Action_acknowledge([FromBody] ActionViewModel model)
+        {
+            try
+            {
+                await context.Database.ExecuteSqlCommandAsync(SPAction.Action_acknowledge, model.ActionId, model.ActionCode, model.Remark, model.UpdatedBy);
+                return Ok(new ResponseResult(200));
+            }
+            catch (Exception)
+            {
+                return BadRequest(new ResponseResult(400, "Save failed"));
+            }
 
+        }
 
 
 

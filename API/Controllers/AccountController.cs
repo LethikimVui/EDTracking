@@ -56,8 +56,12 @@ namespace API.Controllers
                 {
                     new Claim("RoleId", user[0].RoleId.ToString()),
                     new Claim("CustId",  user[0].CustId.ToString()),
-                    new Claim(ClaimTypes.Role, user[0].RoleName),
+                    new Claim(ClaimTypes.Role, user[0].RoleName),                    
                 };
+                foreach (var item in user)
+                {
+                    informationClaim.Add(new Claim(ClaimTypes.Role, item.RoleName));
+                }
             }
 
             informationClaim.Add(new Claim("Ntlogin", model.NTLogin));

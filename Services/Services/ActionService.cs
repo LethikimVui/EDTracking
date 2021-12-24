@@ -14,6 +14,18 @@ namespace Services.Services
 {
     public class ActionService : BaseService, IActionService
     {
+        public async Task<ResponseResult> Acknowledge(ActionViewModel model)
+        {
+            ResponseResult result = new ResponseResult();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            using (var response = await httpClient.PostAsync("api/action/Acknowledge", content))
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                result = JsonConvert.DeserializeObject<ResponseResult>(apiResponse);
+            }
+            return result;
+        }
+
         public async Task<List<VAction>> Get(int Id)
         {
             var results = new List<VAction>();

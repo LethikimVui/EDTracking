@@ -37,11 +37,11 @@
                                 <td>FIA needed</td>
                                 <td>FIA No.</td>
                                 <td>Responsible Person</td>
-                                <td>Remarks</td>
-                                <td>Approved by WC TE Lead?</td>
-                                <td>Status</td>
+                                <td>Acknowledged by WC TE Lead?</td>
                                 <td>Weekly Status</td>
-                                @if (User.IsInRole("Debug User") || User.IsInRole("System Admin"))
+                                <td>Remarks</td>
+                                <td>Overal Status</td>
+                                @if (User.IsInRole("Debug User") || User.IsInRole("System Admin") || User.IsInRole("Approval Owner"))
                                 {
                                     <td style="width:100px">Modification</td>
                                 }
@@ -125,35 +125,23 @@
 
                                     <td id="" class="cell">@item.Fiano</td>
                                     <td id="" class="cell">@item.ResponsiblePerson</td>
-                                    <td id="">@item.Remark</td>
 
                                     @{ var isapproved = "" as string;
-                                        @if (item.IsApproved == "1")
+                                        @if (item.IsApproved == "4")
                                         {
-                                            isapproved = " Acknowledged";
-                                        }
-                                        else if (item.IsApproved == "0")
-                                        {
-                                            isapproved = "Rejected";
-                                        }
+                                            isapproved = "Acknowledged";
+                                        }                                   
                                         else
                                         {
                                             isapproved = "";
                                         }
                                         <td id="" class="cell">@isapproved</td>
                                     }
-                                    @*@if (item.IsApproved == "1")
-                                        {
-                                            <td id="">Approved</td>
-                                        }
-                                        else if (item.IsApproved == "0")
-                                        {
-                                            <td id="">Rejected</td>
-                                        }
-                                        else
-                                        {
-                                            <td id=""></td>
-                                        }*@
+                             
+                                    <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.WeeklyStatus</textarea></td>
+                                    <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.Remark</textarea></td>
+                                 
+
                                     @if (item.Status == 1)
                                     {
                                         <td id="" style="background-color:lightblue">Open</td>
@@ -166,20 +154,15 @@
                                     {
                                         <td id="" style="background-color:green">Closed</td>
                                     }
-                                    <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.CorrectiveandPreventiveAction</textarea></td>
                                     <td class="text-center">
                                         @if (item.Status == 1 && (User.IsInRole("Debug User") || User.IsInRole("System Admin")))
                                         {
-
                                             <a id="btn-edit" class="btn default btn-xs red delete" data-id="@item.ActionId" title="Edit" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-edit"></span></a>
-
                                         }
-                                        @if (item.Status == 1 && (User.IsInRole("Approval Owner")))
+                                        @if (item.Status == 2 && User.IsInRole("Approval Owner"))
                                         {
-
-                                            <a id="btn-edit" class="btn default btn-xs red delete" data-id="@item.ActionId" title="Edit" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-edit"></span></a>
-                                            <a id="btn-approve" class="btn default btn-xs red" data-id="@item.ActionId" title="Approve"> <span class="glyphicon glyphicon-ok"></span></a>
-                                            <a id="btn-ackowledge" class="btn default btn-xs red" data-id="@item.ActionId" title="Ackowledge"> <span class="glyphicon glyphicon-remove"></span></a>
+                                            @*<a id="btn-approve" class="btn default btn-xs red" data-id="@item.ActionId" title="Approve" data-toggle="modal" data-target="#modal"> <span class="glyphicon glyphicon-ok"></span></a>*@
+                                            <a id="btn" class="btn default btn-xs red" data-id="@item.ActionId" title="Ackowledge" data-toggle="modal" data-target="#modal"> <span class="glyphicon glyphicon-remove"></span></a>
                                         }
                                     </td>
                                 </tr>
@@ -217,36 +200,30 @@
                 <div class="form-group">
                     <label for="">Component Part Number</label>
                     <label for="" class="form-control" id="txt-pn" style="background-color:lightskyblue"></label>
-                    @*<input type="text" class="form-control" id="txt-pn">*@
+                
                 </div>
                 <div class="form-group">
                     <label for="">Date Code</label>
-                    @*<label for="" class="form-control" id="txt-pn" style="background-color:lightskyblue"></label>*@
                     <input type="datetime-local" class="form-control" id="txt-date">
                 </div>
                 <div class="form-group">
                     <label for=""> Qty Impact</label>
                     <label for="" class="form-control" id="txt-qty" style="background-color:lightskyblue"></label>
-                    @*<input type="text" class="form-control" id="txt-qty">*@
                 </div>
                 <div class="form-group">
                     <label for="">Failure mode</label>
-                    @*<input type="text" class="form-control" id="txt-fm" name="fm">*@
                     <textarea class="form-control" id="txt-fm" name="fm" rows="7"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="">Root Cause</label>
-                    @*<input type="text" class="form-control" id="txt-rc" name="rc">*@
                     <textarea class="form-control" id="txt-rc" name="rc" rows="7"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="">Containment Action</label>
-                    @*<input type="text" class="form-control" id="txt-fm" name="fm">*@
                     <textarea class="form-control" id="txt-ca" name="ca" rows="7"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="">Corrective and Preventive Action</label>
-                    @*<input type="text" class="form-control" id="txt-rc" name="rc">*@
                     <textarea class="form-control" id="txt-cpa" name="cpa" rows="7"></textarea>
                 </div>
 
@@ -290,13 +267,17 @@
                 <div class="form-group">
                     <input id="upload" type=file multiple name="files" onclick="this.value=''" accept=".xlsx">
                 </div>
+
+                <div class="form-group">
+                    <label for="">Weekly Status</label>
+                    @*<input type="text" class="form-control" id="txt-rc" name="rc">*@
+                    <textarea class="form-control" id="txt-ws" name="ws" rows="7"></textarea>
+                </div>
                 <div class="form-group">
                     <label for="">Remark</label>
                     @*<input type="text" class="form-control" id="txt-rc" name="rc">*@
                     <textarea class="form-control" id="txt-remark" name="remark" rows="3"></textarea>
                 </div>
-
-
             </form>
             <!-- Modal footer -->
             <div class="modal-footer" id="actionId">
@@ -308,9 +289,39 @@
     </div>
 </div>
 
+
+<div class="modal" id="modal">
+    <div class="modal-dialog" style="width:1000px">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">  </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+
+            <form class="modal-body" id="frm-save">
+                <div class="form-group">
+                    <label for="">Remark</label>
+                    @*<label for="" class="form-control" id="txt-ww" style="background-color:lightskyblue"></label>*@
+                    <input type="text" id="txt-rm" class="form-control" />
+                </div>
+
+            </form>
+            <!-- Modal footer -->
+            <div class="modal-footer" id="actionId1">
+                <button type="button" class="btn green" data-dismiss="modal" id="btn-acknowedge">Acknowedge</button>
+                @*<button type="button" class="btn blue" id="btn-submit">Submit</button>*@
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script src="~/js/ckeditor/ckeditor.js"></script>
     <script src="~/js/action.js"></script>
-    <script src="~/js/pending.js"></script>
+    @*<script src="~/js/pending.js"></script>*@
 }
 

@@ -40,6 +40,12 @@ namespace Web.Controllers
             var result = await actionService.Insert(model);
             return Json(new { results = result });
         }
+        [HttpPost]
+        public async Task<IActionResult> Acknowledge([FromBody] ActionViewModel model)
+        {         
+            var result = await actionService.Acknowledge(model);
+            return Json(new { results = result });
+        }
 
         void SentEmail(string custName, string partNumber, string ww)
         {

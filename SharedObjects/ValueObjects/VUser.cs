@@ -10,7 +10,7 @@ namespace SharedObjects.ValueObjects
     {
         public int UserRoleId { get; set; } //
         public string Ntlogin { get; set; }//
-        public string UserName { get; set; }//
+        //public string UserName { get; set; }//
         //public Byte PlantId { get; set; }
         
         

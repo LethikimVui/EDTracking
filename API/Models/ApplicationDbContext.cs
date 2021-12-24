@@ -178,15 +178,7 @@ namespace API.Models
                     .HasColumnName("updatedBy")
                     .HasMaxLength(30)
                     .IsUnicode(false);
-
-                entity.Property(e => e.UserEmail)
-                    .HasColumnName("userEmail")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.UserName)
-                    .HasColumnName("userName")
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+               
             });
 
         }

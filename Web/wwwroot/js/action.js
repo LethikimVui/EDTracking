@@ -2,6 +2,16 @@
     $('body').off('click', '#btn-edit').on('click', '#btn-edit', Edit);
     $('body').off('click', '#btn-save').on('click', '#btn-save', Save);
     $('body').off('click', '#btn-submit').on('click', '#btn-submit', Submit);
+    $('body').off('click', '#btn-acknowedge').on('click', '#btn-acknowedge', Ackowledge);
+    $('body').off('click', '#btn').on('click', '#btn', A);
+
+    var user = document.getElementById('userinfo').getAttribute('data-user');
+    function A() {
+        debugger
+        var Id = parseInt($(this).data('id'));
+        $('#actionId1').val(Id);
+
+    }
     //FillBlankCell()
     function FillBlankCell() {
         var elm = document.getElementsByClassName('cell');
@@ -60,6 +70,10 @@
             {
                 required: true,
             },
+            ws:
+            {
+                required: true,
+            },
         },
         messages: {
             rc:
@@ -105,6 +119,10 @@
             {
                 required: "You need to select this field",
             },
+            ws:
+            {
+                required: "You need to select this field",
+            },
         }
     });
 
@@ -129,7 +147,7 @@
             model.CustName = $('#txt-wc').text();
             model.Pn = $('#txt-pn').text();         
             model.ActionId = parseInt($('#actionId').val());
-            model.ActionCode = 2
+            model.ActionCode = 2 // submit
             model.FailureMode = $('#txt-fm').val();
             model.RootCause = $('#txt-rc').val();
             model.ContainmentAction = $('#txt-ca').val();
@@ -139,10 +157,11 @@
             model.SqelatestStatus = $('#txt-sqe').val();
             model.Mfrfaresult = $('#txt-mfr').val();
             model.Fianeeded = parseInt($('#txt-fia').val());
-            //model.Fianeeded = $('#txt-fia option:selected').text();
+            model.WeeklyStatus = $('#txt-ws').val();
             model.Fiano = $('#txt-fiano').val();
             model.ResponsiblePerson = $('#txt-person').val();
-            model.UpdatedBy = '1099969';
+            model.Remark = $('#txt-rm').val() ? ': ' + $('#txt-rm').val() + '\r\n' : '\r\n'; //$('#txt-remark').val() + "\r\n";
+            model.UpdatedBy = user;
             debugger
             $.ajax({
                 type: 'post',
@@ -190,7 +209,8 @@
                 $('#txt-fia').val(data.fianeeded);
                 $('#txt-fiano').val(data.fiano);
                 $('#txt-person').val(data.responsiblePerson);
-                $('#txt-remark').val(data.remark);
+                $('#txt-ws').val(data.weeklyStatus);
+                //$('#txt-remark').val(data.remark);
                 $('#actionId').val(Id);
             }
         })
@@ -206,7 +226,7 @@
         dateCode = dateCode.getDate() ? dateCode.getFullYear() + '-' + (dateCode.getMonth() + 1) + '-' + dateCode.getDate() + ' ' + dateCode.getHours() + ':' + dateCode.getMinutes() + ':' + dateCode.getSeconds() + '.' + dateCode.getMilliseconds() : null;
         
         model.ActionId = parseInt($('#actionId').val());
-        model.ActionCode = 1
+        model.ActionCode = 1 // save
         model.DateCode = dateCode;
         model.FailureMode = $('#txt-fm').val();
         model.RootCause = $('#txt-rc').val();
@@ -218,9 +238,11 @@
         model.Mfrfaresult = $('#txt-mfr').val();
         model.Fianeeded = parseInt($('#txt-fia').val());
         model.Fiano = $('#txt-fiano').val();
+        model.WeeklyStatus = $('#txt-ws').val();
+
         model.ResponsiblePerson = $('#txt-person').val();
-        model.Remark = $('#txt-remark').val();      
-        model.UpdatedBy = '1099969';
+        model.Remark = $('#txt-rm').val() ? ': ' + $('#txt-rm').val() + '\r\n' : '\r\n'; //$('#txt-remark').val() + "\r\n";      
+        model.UpdatedBy = user;
         debugger
         $.ajax({
             type: 'post',
@@ -241,4 +263,33 @@
 
     }
 
+
+    function Ackowledge() {
+        var actionId = parseInt($('#actionId1').val());
+        var model = new Object();
+
+        model.ActionId = actionId;
+        model.ActionCode = 4; //Ackowledge
+        model.Remark = $('#txt-rm').val() ? ': ' + $('#txt-rm').val() + '\r\n' : '\r\n';
+        model.UpdatedBy = user;
+        debugger
+        $.ajax({
+            type: 'post',
+            url: '/Action/Acknowledge',
+            data: JSON.stringify(model),
+            dataType: 'json',
+            contentType: 'application/json,; charset=utf-8',
+            success: function (response) {
+                var data = response.results;
+                debugger
+                if (data.statusCode == 200) {
+                    bootbox.alert("Acknowledged", function () { window.location.reload(); })
+                }
+                else {
+                    bootbox.alert(data.message)
+                }
+            }
+        })
+
+    }
 })

@@ -32,6 +32,7 @@ namespace SharedObjects.ValueObjects
         public string ResponsiblePerson { get; set; }
         public string IsApproved { get; set; }
         public string Remark { get; set; }
+        public string WeeklyStatus { get; set; }
         public int? Status { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace API.Models
     {
         public int UserRoleId { get; set; }
         public string Ntlogin { get; set; }
-        public string UserName { get; set; }
+        //public string UserName { get; set; }
         public byte? RoleId { get; set; }
         public byte? PlantId { get; set; }
         public byte? CustId { get; set; }
@@ -20,6 +20,6 @@ namespace API.Models
         public DateTime? UpdateDate { get; set; }
         public string UpdatedBy { get; set; }
         public byte? IsActive { get; set; }
-        public string UserEmail { get; set; }
+        //public string UserEmail { get; set; }
     }
 }
