@@ -28,6 +28,27 @@ namespace API.Controllers
         {
             var results = await context.Query<VRole>().AsNoTracking().FromSql(SPCommon.Access_Role_get).ToListAsync();
             return results;
+        }    
+        [HttpGet("PartNumber_get")]
+        [Obsolete]
+        public async Task<List<VPartNumber>> PartNumber_get()
+        {
+            var results = await context.Query<VPartNumber>().AsNoTracking().FromSql(SPCommon.PartNumber_get).ToListAsync();
+            return results;
+        }   
+        [HttpGet("WorkWeek_get")]
+        [Obsolete]
+        public async Task<List<VWorkWeek>> WorkWeek_get()
+        {
+            var results = await context.Query<VWorkWeek>().AsNoTracking().FromSql(SPCommon.WorkWeek_get).ToListAsync();
+            return results;
+        }   
+        [HttpGet("Master_Customer_Get/{NTLogin}")]
+        [Obsolete]
+        public async Task<List<VCustomer>> Master_Customer_Get(string NTLogin)
+        {
+            var results = await context.Query<VCustomer>().AsNoTracking().FromSql(SPCommon.Master_Customer_Get, NTLogin).ToListAsync();
+            return results;
         }
     }
 }

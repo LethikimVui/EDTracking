@@ -26,6 +26,18 @@ namespace Services.Services
             return result;
         }
 
+        public async Task<List<VAction>> Action_get_mul(ActionViewModel model)
+        {
+            var results = new List<VAction>();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            using (var response = await httpClient.PostAsync("api/Action/Action_get_mul/" , content))
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                results = JsonConvert.DeserializeObject<List<VAction>>(apiResponse);
+            }
+            return results;
+        }
+
         public async Task<List<VAction>> Get(int Id)
         {
             var results = new List<VAction>();

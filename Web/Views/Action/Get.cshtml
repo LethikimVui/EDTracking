@@ -2,6 +2,9 @@
 @using SharedObjects.Extensions;
 
 @{
+    var customers = ViewData["customers"] as List<SharedObjects.ValueObjects.VCustomer>;
+    var partNumbers = ViewData["partNumbers"] as List<SharedObjects.ValueObjects.VPartNumber>;
+    var ww = ViewData["ww"] as List<SharedObjects.ValueObjects.VWorkWeek>;
     ViewData["Title"] = "Q3";
 }
 
@@ -17,6 +20,44 @@
                             Q3
                         </span>
                     </div>
+                    <div class="col-md-1 pull-left">
+                        <label class="text-center bold font-green-sharp" for="">Part Number</label>
+                        <select class="form-control" id="txt-pn" style="height: 34px !important; color: mediumvioletred">
+                            <option value="">--Please Select--</option>
+
+                            @foreach (var item in partNumbers.OrderBy(c=>c.Pn).ToList())
+                            {
+                                <option value="">@item.Pn</option>
+                            }
+                        </select>
+                    </div> <div class="col-md-1 pull-left">
+                        <label class="text-center bold font-green-sharp" for="">Work Week</label>
+                        <select class="form-control" id="txt-ww" style="height: 34px !important; color: mediumvioletred">
+                            <option value="">--Please Select--</option>
+
+                            @foreach (var item in ww.OrderBy(c => c.WWyy).ToList())
+                            {
+                                <option value="">@item.WWyy</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-1 pull-left">
+                        <label class="text-center bold font-green-sharp" for="">Customer</label>
+                        <select class="form-control" id="txt-customer" style="height: 34px !important; color: mediumvioletred">
+                            <option value="">--Please Select--</option>
+
+                            @foreach (var item in customers.OrderByDescending(c => c.CustId).ToList())
+                            {
+                                <option value=@item.CustId>@item.CustName</option>
+                            }
+                        </select>
+                    </div>
+                    @*<div class="form-group col-md-1">
+                        <label class="text-center bold font-green-sharp" for="">Serial Number</label>
+                        <label class="control-label"></label>
+                        <input id="txt-serialNumber" class="form-control col-md-3" style="color: mediumvioletred" />
+                    </div>*@
+
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                             <tr class="text-center bold">
@@ -32,14 +73,15 @@
                                 <td>Attachment</td>
                                 <td>Parts Consigned or Turnkey</td>
                                 <td>FA No.</td>
-                                <td>SQE latest status</td>
+                                @*<td>SQE latest status</td>*@
                                 <td>MFR FA Result</td>
                                 <td>FIA needed</td>
                                 <td>FIA No.</td>
                                 <td>Responsible Person</td>
-                                <td>Acknowledged by WC TE Lead?</td>
+                                @*<td>Acknowledged by WC TE Lead?</td>*@
                                 <td>Weekly Status</td>
-                                <td>Remarks</td>
+                                <td>Activity Log</td>
+                                <td>Record Aging</td>
                                 <td>Overal Status</td>
                                 @if (User.IsInRole("Debug User") || User.IsInRole("System Admin") || User.IsInRole("Approval Owner"))
                                 {
@@ -55,26 +97,13 @@
                                     <td id="">@item.Wwyy</td>
                                     <td id="">@item.CustName</td>
                                     <td id="">@item.Pn</td>
-                                    <td id="">@item.DateCode1</td>
+                                    <td id="">@item.DateCode</td>
                                     <td id="">@item.Qty</td>
                                     <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.FailureMode</textarea></td>
                                     <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.RootCause</textarea></td>
                                     <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.ContainmentAction</textarea></td>
                                     <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.CorrectiveandPreventiveAction</textarea></td>
                                     <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.CorrectiveandPreventiveAction</textarea></td>
-                                    @*@if (item.PartsCosignedOrTurnkey == "1")
-                                        {
-                                            <td id="" class="cell">Parts Cosigned</td>
-                                        }
-                                        else if (item.PartsCosignedOrTurnkey == "2")
-                                        {
-                                            <td id="" class="cell">Turnkey </td>
-                                        }
-                                        else
-                                        {
-                                            <td id="" class="cell"></td>
-                                        }*@
-
                                     @{ var pct = "" as string;
                                         if (item.PartsCosignedOrTurnkey == "1")
                                         {
@@ -92,21 +121,8 @@
                                     }
 
                                     <td id="" class="cell">@item.Fano</td>
-                                    <td id="" class="cell">@item.SqelatestStatus</td>
+                                    @*<td id="" class="cell">@item.SqelatestStatus</td>*@
                                     <td id="" class="cell">@item.Mfrfaresult</td>
-                                    @*@if (item.Fianeeded == "1")
-                                        {
-                                            <td id="">Yes</td>
-                                        }
-                                        else if (item.Fianeeded == "0")
-                                        {
-                                            <td id="">No</td>
-                                        }
-                                        else
-                                        {
-                                            <td id=""></td>
-                                        }*@
-
                                     @{ var fia = "" as string;
                                         @if (item.Fianeeded == "1")
                                         {
@@ -126,22 +142,21 @@
                                     <td id="" class="cell">@item.Fiano</td>
                                     <td id="" class="cell">@item.ResponsiblePerson</td>
 
-                                    @{ var isapproved = "" as string;
-                                        @if (item.IsApproved == "4")
-                                        {
-                                            isapproved = "Acknowledged";
-                                        }                                   
-                                        else
-                                        {
-                                            isapproved = "";
-                                        }
-                                        <td id="" class="cell">@isapproved</td>
-                                    }
-                             
+                                    @*@{ var isapproved = "" as string;
+                                            @if (item.IsApproved == "4")
+                                            {
+                                                isapproved = "Acknowledged";
+                                            }
+                                            else
+                                            {
+                                                isapproved = "";
+                                            }
+                                            <td id="" class="cell">@isapproved</td>
+                                        }*@
+
                                     <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.WeeklyStatus</textarea></td>
                                     <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.Remark</textarea></td>
-                                 
-
+                                    <td id="" class="cell">@item.Aging</td>
                                     @if (item.Status == 1)
                                     {
                                         <td id="" style="background-color:lightblue">Open</td>
@@ -162,7 +177,8 @@
                                         @if (item.Status == 2 && User.IsInRole("Approval Owner"))
                                         {
                                             @*<a id="btn-approve" class="btn default btn-xs red" data-id="@item.ActionId" title="Approve" data-toggle="modal" data-target="#modal"> <span class="glyphicon glyphicon-ok"></span></a>*@
-                                            <a id="btn" class="btn default btn-xs red" data-id="@item.ActionId" title="Ackowledge" data-toggle="modal" data-target="#modal"> <span class="glyphicon glyphicon-remove"></span></a>
+                                            @*<a id="btn" class="btn default btn-xs red" data-id="@item.ActionId" title="Ackowledge" data-toggle="modal" data-target="#modal"> <span class="glyphicon glyphicon-remove"></span></a>*@
+                                            <button id="btn" data-id="@item.ActionId" data-toggle="modal" data-target="#modal" type="button" class="btn blue">Acknowledge</button>
                                         }
                                     </td>
                                 </tr>
@@ -200,11 +216,11 @@
                 <div class="form-group">
                     <label for="">Component Part Number</label>
                     <label for="" class="form-control" id="txt-pn" style="background-color:lightskyblue"></label>
-                
                 </div>
                 <div class="form-group">
                     <label for="">Date Code</label>
-                    <input type="datetime-local" class="form-control" id="txt-date">
+                    <input type="text" class="form-control" id="txt-datecode" name="datecode" autocomplete="off" />
+                    @*<input type="text" class="form-control" id="txt-datecode">*@
                 </div>
                 <div class="form-group">
                     <label for=""> Qty Impact</label>
@@ -237,15 +253,15 @@
                 </div>
                 <div class="form-group">
                     <label for="">FA No.</label>
-                    <input type="text" class="form-control" id="txt-fano" name="fano">
+                    <input type="text" class="form-control" id="txt-fano" name="fano" autocomplete="off" />
                 </div>
-                <div class="form-group">
-                    <label>SQE latest status</label>
-                    <input type="text" class="form-control" id="txt-sqe" name="sqe" />
-                </div>
+                @*<div class="form-group">
+                        <label>SQE latest status</label>
+                        <input type="text" class="form-control" id="txt-sqe" name="sqe" autocomplete="off"/>
+                    </div>*@
                 <div class="form-group">
                     <label for=""> MFR FA Result</label>
-                    <input type="text" class="form-control" id="txt-mfr" name="mfr">
+                    <input type="text" class="form-control" id="txt-mfr" name="mfr" autocomplete="off" />
                 </div>
                 <div class="form-group">
                     <label for="">FIA needed</label>
@@ -257,25 +273,24 @@
                 </div>
                 <div class="form-group">
                     <label for="">	FIA No.</label>
-                    <input type="text" class="form-control" id="txt-fiano" name="fiano">
+                    <input type="text" class="form-control" id="txt-fiano" name="fiano" autocomplete="off" />
                 </div>
                 <div class="form-group">
                     <label for="">Responsible Person</label>
-                    <input type="text" class="form-control" id="txt-person" name="person">
-
+                    <input type="text" class="form-control" id="txt-person" name="person" autocomplete="off" />
                 </div>
-                <div class="form-group">
-                    <input id="upload" type=file multiple name="files" onclick="this.value=''" accept=".xlsx">
-                </div>
-
                 <div class="form-group">
                     <label for="">Weekly Status</label>
-                    @*<input type="text" class="form-control" id="txt-rc" name="rc">*@
                     <textarea class="form-control" id="txt-ws" name="ws" rows="7"></textarea>
                 </div>
                 <div class="form-group">
+                    @*<input id="upload" type=file multiple name="files" onclick="this.value=''" accept=".xlsx">*@
+                    <input id="attachment" type=file multiple name="files" onclick="this.value=''" accept=".xlsx">
+                </div>
+                <div id="fileList">
+                </div>
+                <div class="form-group">
                     <label for="">Remark</label>
-                    @*<input type="text" class="form-control" id="txt-rc" name="rc">*@
                     <textarea class="form-control" id="txt-remark" name="remark" rows="3"></textarea>
                 </div>
             </form>
@@ -295,7 +310,7 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">  </h4>
+                <h4 class="modal-title">Acknowedge / Completion</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -311,10 +326,9 @@
             </form>
             <!-- Modal footer -->
             <div class="modal-footer" id="actionId1">
-                <button type="button" class="btn green" data-dismiss="modal" id="btn-acknowedge">Acknowedge</button>
-                @*<button type="button" class="btn blue" id="btn-submit">Submit</button>*@
+                <button type="button" class="btn blue" data-dismiss="modal" id="btn-acknowedge">Acknowedge</button>
+                <button type="button" class="btn green" data-dismiss="modal" id="btn-complete">Complete</button>
             </div>
-
         </div>
     </div>
 </div>

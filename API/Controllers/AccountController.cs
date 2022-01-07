@@ -37,38 +37,50 @@ namespace API.Controllers
         [Obsolete]
         public async Task<IActionResult> Login([FromBody] LoginViewModel model)
         {
-            var user = await context.Query<VUser>().AsNoTracking().FromSql(SPAccount.Access_UserRole_Get, model.NTLogin).ToListAsync();
+            var user = await context.Query<VUser>().AsNoTracking().FromSql(SPAccount.UserRole_get, model.NTLogin).ToListAsync();
             List<Claim> informationClaim = new List<Claim>();
-            if (user.Count() == 0)
+            //if (user.Count() == 0)
+            //{
+            //    // create claims and return with user access
+            //    informationClaim = new List<Claim>()
+            //    {
+            //        //new Claim("RoleId", "-1"),
+            //        //new Claim("CustId", "-1"),
+            //        new Claim(ClaimTypes.Role, "None"),
+            //        //new Claim("UserName", "Vui le"),
+            //    };
+            //    // return NotFound(new ResponseResult(404, "User is not configured"));
+            //}
+            //else
+            //{
+            //    //informationClaim = new List<Claim>()
+            //    //{
+            //    //    //new Claim("RoleId", user[0].RoleId.ToString()),
+            //    //    new Claim("CustId",  user[0].CustId.ToString()),
+            //    //    //new Claim("UserEmail",  user[0].UserEmail),
+            //    //    //new Claim("UserName", user[0].UserName),
+            //    //    new Claim(ClaimTypes.Role, user[0].RoleName),                    
+            //    //};
+            //    foreach (var item in user)
+            //    {
+            //        informationClaim.Add(new Claim(ClaimTypes.Role, item.RoleName));
+            //    }
+            //}
+
+
+            if (user.Count() > 0)
             {
-                // create claims and return with user access
-                informationClaim = new List<Claim>()
-                {
-                    new Claim("RoleId", "-1"),
-                    new Claim("CustId", "-1"),
-                    new Claim(ClaimTypes.Role, "None"),
-                };
-                // return NotFound(new ResponseResult(404, "User is not configured"));
-            }
-            else
-            {
-                informationClaim = new List<Claim>()
-                {
-                    new Claim("RoleId", user[0].RoleId.ToString()),
-                    new Claim("CustId",  user[0].CustId.ToString()),
-                    new Claim(ClaimTypes.Role, user[0].RoleName),                    
-                };
                 foreach (var item in user)
                 {
                     informationClaim.Add(new Claim(ClaimTypes.Role, item.RoleName));
+                    informationClaim.Add(new Claim("CustId", user[0].CustId.ToString()));
                 }
-            }
+            }         
 
+          
             informationClaim.Add(new Claim("Ntlogin", model.NTLogin));
-            informationClaim.Add(new Claim("UserName", "Vui le"));
-            //informationClaim.Add(new Claim("UserName", user[0].UserName));
-            //informationClaim.Add(new Claim("UserName", Function.GetProperty(model.NTLogin, "displayname")));
-            //informationClaim.Add(new Claim("Email", GetEmailFromSamAccountName(model.NTLogin)));
+            informationClaim.Add(new Claim("UserName", user[0].UserName));
+            informationClaim.Add(new Claim("UserEmail", user[0].UserEmail));
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(informationClaim, CookieAuthenticationDefaults.AuthenticationScheme);
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));

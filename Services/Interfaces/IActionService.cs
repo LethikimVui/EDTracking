@@ -12,6 +12,7 @@ namespace Services.Interfaces
     public interface IActionService
     {
         Task<List<VAction>> Get(int Id);
+        Task<List<VAction>> Action_get_mul(ActionViewModel model);
         Task<ResponseResult> Insert(ActionViewModel model);
         Task<ResponseResult> Acknowledge(ActionViewModel model);
     }

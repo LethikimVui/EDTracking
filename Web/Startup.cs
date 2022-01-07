@@ -79,7 +79,7 @@ namespace Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Action}/{action=Get}/{id?}");
+                    pattern: "{controller=Action}/{action=Get_mul}/{id?}");
             });
         }
     }

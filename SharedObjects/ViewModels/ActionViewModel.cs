@@ -10,6 +10,7 @@ namespace SharedObjects.ViewModels
     public class ActionViewModel
     {
         public string Wwyy { get; set; }
+        public int CustId { get; set; }
         public string CustName { get; set; }
         public string Pn { get; set; }
         public int ActionId { get; set; }

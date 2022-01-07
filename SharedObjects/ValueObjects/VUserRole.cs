@@ -10,7 +10,7 @@ namespace SharedObjects.ValueObjects
     {
         public int UserRoleId { get; set; } //
         public string Ntlogin { get; set; }//
-        //public string UserName { get; set; }//
+        public string UserName { get; set; }//
         public byte RoleId { get; set; }//
         public byte PlantId { get; set; }//
         public byte CustId { get; set; }//
@@ -20,8 +20,8 @@ namespace SharedObjects.ValueObjects
         public string UpdatedBy { get; set; }//
         public DateTime? UpdateDate { get; set; }//
         //public string Plant { get; set; }
-        //public string CustName { get; set; }
+        public string CustName { get; set; }
         public string RoleName { get; set; }//
-        //public string UserEmail { get; set; }
+        public string UserEmail { get; set; }
     }
 }

@@ -29,6 +29,13 @@ namespace API.Controllers
         {
             var results = await context.Query<VAction>().AsNoTracking().FromSql(SPAction.Action_get, Id).ToListAsync();
             return results;
+        } 
+        [HttpPost("Action_get_mul")]
+        [Obsolete()]
+        public async Task<List<VAction>> Action_get_mul([FromBody] ActionViewModel model)
+        {
+            var results = await context.Query<VAction>().AsNoTracking().FromSql(SPAction.Action_get_mul, model.CustId, model.Wwyy, model.Pn).ToListAsync();
+            return results;
         }
         [HttpPost("Insert")]
         [Obsolete]

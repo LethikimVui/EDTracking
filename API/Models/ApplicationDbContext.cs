@@ -30,6 +30,9 @@ namespace API.Models
         public virtual DbQuery<VRole> VRole { get; set; }
         public virtual DbQuery<VUserRole> VUserRole { get; set; }
         public virtual DbQuery<VApproval> VApproval { get; set; }
+        public virtual DbQuery<VCustomer> VCustomer { get; set; }
+        public virtual DbQuery<VPartNumber> VPartNumber { get; set; }
+        public virtual DbQuery<VWorkWeek> VWorkWeek { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -108,28 +111,33 @@ namespace API.Models
             });
             modelBuilder.Entity<MasterApproval>(entity =>
             {
-                entity.HasKey(e => e.ApprovalId);
+                entity.HasKey(e => e.UserRoleId);
 
                 entity.ToTable("Master_Approval");
 
-                entity.Property(e => e.ApprovalId).HasColumnName("approvalId");
+                entity.Property(e => e.UserRoleId).HasColumnName("userRoleId");
 
                 entity.Property(e => e.CreatedBy)
                     .HasColumnName("createdBy")
-                    .HasMaxLength(50)
+                    .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CreationDate)
                     .HasColumnName("creationDate")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.CustId).HasColumnName("custId");
+                entity.Property(e => e.CustId).HasColumnName("custID");
 
                 entity.Property(e => e.IsActive).HasColumnName("isActive");
 
                 entity.Property(e => e.Ntlogin)
                     .HasColumnName("NTLogin")
+                    .HasMaxLength(30)
                     .IsUnicode(false);
+
+                entity.Property(e => e.PlantId).HasColumnName("plantID");
+
+                entity.Property(e => e.RoleId).HasColumnName("roleID");
 
                 entity.Property(e => e.UpdateDate)
                     .HasColumnName("updateDate")
@@ -137,7 +145,7 @@ namespace API.Models
 
                 entity.Property(e => e.UpdatedBy)
                     .HasColumnName("updatedBy")
-                    .HasMaxLength(50)
+                    .HasMaxLength(30)
                     .IsUnicode(false);
             });
             modelBuilder.Entity<AccessUserRole>(entity =>

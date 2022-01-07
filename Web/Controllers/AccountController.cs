@@ -92,7 +92,7 @@ namespace Web.Controllers
                     return Redirect(returnUrl);
                 }
                 else
-                    return RedirectToAction("Get", "Action");
+                    return RedirectToAction("Get_mul", "Action");
             }
             else
             {

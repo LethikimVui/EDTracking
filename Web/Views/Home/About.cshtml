@@ -30,7 +30,12 @@
                             </tr>
                         </tbody>
                     </table>
-
+                    <div class="form-group">
+                        <input id="attachment" type=file multiple name="files" accept=".xlsx">
+                    </div>
+                    <div id="fileList">
+                        <p>No files selected!</p>
+                    </div>
                     <div class="caption col-md-6">
                         <span class="caption-subject font-green-sharp bold uppercase">
                             Contact Information
@@ -60,3 +65,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts{ 
+    <script src="~/js/about.js"></script>
+} 

@@ -12,11 +12,12 @@ namespace SharedObjects.ValueObjects
         public string CustName { get; set; }
         public string Pn { get; set; }
         public int? Qty { get; set; }
+        public int? Aging { get; set; }
         public double? Percentage { get; set; }
         public byte? IsActive { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdateDate { get; set; }
-        public string DateCode1 { get; set; }
+        public string DateCode { get; set; }
         public string UpdatedBy { get; set; }
         public string Wwyy { get; set; }
         public string FailureMode { get; set; }
