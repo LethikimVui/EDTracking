@@ -1,0 +1,44 @@
+﻿
+:root {
+    --text: "--Please Select--";
+    --value: ""
+}
+
+.multiple_select {
+    height: 5px;
+    width: 50%;
+    overflow: hidden;
+    -webkit-appearance: menulist;
+    position: relative;
+    z-index: 200;
+}
+
+    .multiple_select::before {
+        content: var(--text);
+        display: block;
+        margin-left: 5px;
+        margin-bottom: 15px;
+        z-index: 9999;
+    }
+
+.multiple_select_active {
+    overflow: visible !important;
+}
+
+.multiple_select option {
+    display: none;
+    height: 5px;
+    background-color: white;
+}
+
+.multiple_select_active option {
+    display: block;
+}
+
+.multiple_select option::before {
+    content: "\2610";
+}
+
+.multiple_select option:checked::before {
+    content: "\2611";
+}

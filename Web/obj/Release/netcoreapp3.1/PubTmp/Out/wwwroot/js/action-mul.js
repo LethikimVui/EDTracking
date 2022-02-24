@@ -9,6 +9,8 @@
     $('body').off('click', '#btn-complete').on('click', '#btn-complete', Complete);
     $('body').off('click', '#btn').on('click', '#btn', Confirm);
 
+    $('body').off('click', '#btn-export').on('click', '#btn-export', DownloadAsExcel);
+
     var user = document.getElementById('userinfo').getAttribute('data-user');
 
     function Load() {
@@ -25,37 +27,6 @@
         window.location.reload();
     }
 
-    function LoadData(){
-        var model = new Object();
-
-        model.Wwyy = $('#txt-ww-search').val() ? $('#txt-ww-search').val() : null;
-        model.CustId = parseInt($('#txt-wc-search').val());
-        model.Pn = $('#txt-pn-search').val() ? $('#txt-pn-search').val(): null;
-        debugger
-        $.ajax({
-            type: 'post',
-            url: '/action/Get_partial',
-            data: JSON.stringify(model),
-            contentType: 'application/json,; charset=utf-8',
-            success: function (data) {
-                $("#tbl-content").html(data);
-            }
-
-
-            //type: 'post',
-            //url: '/Main/GetPagination',
-            //data: JSON.stringify(model),
-            //contentType: "application/json; charset=utf-8",
-            //success: function (data) {
-            //    $("#tbl-content").html(data);
-            //    MainTable.paging(totalRecord, function () { }, changePageSize);
-            //}
-
-
-        })
-
-
-    }
     function Confirm() {
         debugger
         var Id = parseInt($(this).data('id'));
@@ -269,10 +240,10 @@
                 //selectedFile.addEventListener("change", handleFiles, false);
                 //function handleFiles() {
                 //    debugger
-                   
+
                 //    for (let i = 0; i < this.files.length; i++) {
                 //        const li = document.createElement("li");
-                        
+
                 //        li.appendChild(document.createTextNode(this.files[i].name))
                 //        list.appendChild(li);
                 //        //form_data.append("files", this.files[i]);
@@ -297,7 +268,6 @@
             }
         })
     }
-
 
     function Save() {
         var model = new Object();
@@ -410,6 +380,70 @@
 
     }
 
+    function LoadData() {
+        var model = new Object();
+
+        model.Wwyy = $('#txt-ww-search').val() ? $('#txt-ww-search').val() : null;
+        model.CustId = parseInt($('#txt-wc-search').val());
+        model.Pn = $('#txt-pn-search').val() ? $('#txt-pn-search').val() : null;
+        debugger
+        $.ajax({
+            type: 'post',
+            url: '/action/Get_partial',
+            data: JSON.stringify(model),
+            contentType: 'application/json,; charset=utf-8',
+            success: function (data) {
+                $("#tbl-content").html(data);
+            }
+        })
 
 
+    }
+
+    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const EXCEL_EXTENSION = '.xlsx';
+
+    function DownloadAsExcel() {
+        var data = [];
+
+        if ($('#txt-wc-search').val()) {
+            var model = new Object();
+            model.Wwyy = $('#txt-ww-search').val() ? $('#txt-ww-search').val() : null;
+            model.CustId = parseInt($('#txt-wc-search').val());
+            model.Pn = $('#txt-pn-search').val() ? $('#txt-pn-search').val() : null;
+            debugger
+            $.ajax({
+                async: false,
+                type: 'post',
+                url: '/Action/Action_export',
+                data: JSON.stringify(model),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    data = response.result;
+                    const worksheet = XLSX.utils.json_to_sheet(data);
+                    const workbook = {
+                        Sheets: {
+                            'data': worksheet
+                        },
+                        SheetNames: ['data']
+                    };
+                    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+                    SaveAsExcel(excelBuffer, 'Q3');
+                }
+            });
+        }
+        else {
+            bootbox.alert('Please select customer!')
+        }
+    }
+
+    function SaveAsExcel(buffer, filename) {
+        var dateTime = new Date(Date.now());
+        var strDateTime = dateTime.getFullYear() + '' + (dateTime.getMonth() + 1) + dateTime.getDate() + dateTime.getHours() + dateTime.getMinutes() + dateTime.getMilliseconds();
+        const data = new Blob([buffer], { type: EXCEL_TYPE });
+        debugger
+        saveAs(data, filename + strDateTime + EXCEL_EXTENSION);
+
+    }
 })

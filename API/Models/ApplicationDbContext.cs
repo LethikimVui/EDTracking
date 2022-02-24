@@ -25,6 +25,7 @@ namespace API.Models
         public virtual DbSet<AccessUserRole> AccessUserRole { get; set; }
         public virtual DbSet<Action> Action { get; set; }
         public virtual DbQuery<VAction> VAction { get; set; }
+        public virtual DbQuery<VAction_Export> Action_Export { get; set; }
         public virtual DbQuery<VUser> VUser { get; set; }
         public virtual DbQuery<VPending> VPending { get; set; }
         public virtual DbQuery<VRole> VRole { get; set; }

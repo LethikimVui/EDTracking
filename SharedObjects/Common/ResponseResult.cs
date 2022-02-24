@@ -10,7 +10,7 @@ namespace SharedObjects.Common
     {
         public int StatusCode { get; set; }
         public string Message { get; set; }
-        public List<string> Notilications { get; set; }
+        public List<string> Notifications { get; set; }
         public ResponseResult()
         {
 
@@ -27,7 +27,7 @@ namespace SharedObjects.Common
         public ResponseResult(int statusCode, List<string> notifications)
         {
             StatusCode = statusCode;
-            Notilications = notifications;
+            Notifications = notifications;
         }  
     }
 }

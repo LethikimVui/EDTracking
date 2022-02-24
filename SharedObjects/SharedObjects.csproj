@@ -52,6 +52,7 @@
     <Compile Include="StoredProcedure\SPAction.cs" />
     <Compile Include="StoredProcedure\SPAdmin.cs" />
     <Compile Include="StoredProcedure\SPCommon.cs" />
+    <Compile Include="ValueObjects\VAction_Export.cs" />
     <Compile Include="ValueObjects\VWorkWeek.cs" />
     <Compile Include="ValueObjects\VPartNumber.cs" />
     <Compile Include="ValueObjects\VApproval.cs" />

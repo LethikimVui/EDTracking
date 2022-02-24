@@ -29,18 +29,18 @@ namespace API.Controllers
             var results = await context.Query<VRole>().AsNoTracking().FromSql(SPCommon.Access_Role_get).ToListAsync();
             return results;
         }    
-        [HttpGet("PartNumber_get")]
+        [HttpGet("PartNumber_get/{custId}")]
         [Obsolete]
-        public async Task<List<VPartNumber>> PartNumber_get()
+        public async Task<List<VPartNumber>> PartNumber_get(int custId)
         {
-            var results = await context.Query<VPartNumber>().AsNoTracking().FromSql(SPCommon.PartNumber_get).ToListAsync();
+            var results = await context.Query<VPartNumber>().AsNoTracking().FromSql(SPCommon.PartNumber_get, custId).ToListAsync();
             return results;
         }   
-        [HttpGet("WorkWeek_get")]
+        [HttpGet("WorkWeek_get/{custId}")]
         [Obsolete]
-        public async Task<List<VWorkWeek>> WorkWeek_get()
+        public async Task<List<VWorkWeek>> WorkWeek_get(int custId)
         {
-            var results = await context.Query<VWorkWeek>().AsNoTracking().FromSql(SPCommon.WorkWeek_get).ToListAsync();
+            var results = await context.Query<VWorkWeek>().AsNoTracking().FromSql(SPCommon.WorkWeek_get, custId).ToListAsync();
             return results;
         }   
         [HttpGet("Master_Customer_Get/{NTLogin}")]

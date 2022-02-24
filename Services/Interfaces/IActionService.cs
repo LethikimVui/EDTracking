@@ -13,6 +13,7 @@ namespace Services.Interfaces
     {
         Task<List<VAction>> Get(int Id);
         Task<List<VAction>> Action_get_mul(ActionViewModel model);
+        Task<List<VAction_Export>> Action_export(ActionViewModel model);
         Task<ResponseResult> Insert(ActionViewModel model);
         Task<ResponseResult> Acknowledge(ActionViewModel model);
     }

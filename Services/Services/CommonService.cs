@@ -24,20 +24,20 @@ namespace Services.Services
             }
             return userRoles;
         }  
-        public async Task<List<VPartNumber>> PartNumber_get()
+        public async Task<List<VPartNumber>> PartNumber_get(int custId)
         {
             List<VPartNumber> partNumber = new List<VPartNumber>();
-            using (var response = await httpClient.GetAsync("api/Common/PartNumber_get"))
+            using (var response = await httpClient.GetAsync("api/Common/PartNumber_get/"+ custId))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 partNumber = JsonConvert.DeserializeObject<List<VPartNumber>>(apiResponse);
             }
             return partNumber;
         }
-        public async Task<List<VWorkWeek>> WorkWeek_get()
+        public async Task<List<VWorkWeek>> WorkWeek_get(int custId)
         {
             List<VWorkWeek> ww = new List<VWorkWeek>();
-            using (var response = await httpClient.GetAsync("api/Common/WorkWeek_get"))
+            using (var response = await httpClient.GetAsync("api/Common/WorkWeek_get/" + custId))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 ww = JsonConvert.DeserializeObject<List<VWorkWeek>>(apiResponse);

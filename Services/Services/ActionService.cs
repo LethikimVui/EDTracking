@@ -36,6 +36,16 @@ namespace Services.Services
                 results = JsonConvert.DeserializeObject<List<VAction>>(apiResponse);
             }
             return results;
+        }  public async Task<List<VAction_Export>> Action_export(ActionViewModel model)
+        {
+            var results = new List<VAction_Export>();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            using (var response = await httpClient.PostAsync("api/Action/Action_export/", content))
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                results = JsonConvert.DeserializeObject<List<VAction_Export>>(apiResponse);
+            }
+            return results;
         }
 
         public async Task<List<VAction>> Get(int Id)

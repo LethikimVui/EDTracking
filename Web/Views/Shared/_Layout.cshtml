@@ -13,7 +13,20 @@
 
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN CSS OWN FILES -->
+    <!-- Load jQuery -->
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <!-- Load Bootstrap -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
 
+    <!-- Load the plugin bundle. -->
+    <!--<link href="~/css/filter_multi_select.css" rel="stylesheet" />
+    <script src="~/js/filter-multi-select-bundle.min.js"></script>-->
+
+
+
+    @*<link href="~/css/multipleSelection.css" rel="stylesheet" />*@
+    <!-- END PCSS OWN FILES -->
 
     <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="~/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css">
@@ -30,11 +43,6 @@
     <link href="~/assets/admin/layout3/css/layout.css" rel="stylesheet" type="text/css">
     <link href="~/assets/admin/layout3/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color">
     <link href="~/assets/admin/layout3/css/custom.css" rel="stylesheet" type="text/css">
-    <style>
-        .error {
-            color: red;
-        }
-    </style>
 
     <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
     <link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
@@ -43,8 +51,15 @@
     <script src="~/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 
     <!-- END THEME STYLES -->
-
-
+    <!-- BEGIN READ EXCEL FILE BY JAVASCRIPT -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+    <!-- END READ EXCEL FILE BY JAVASCRIPT -->
+    <!-- BEGIN Excel download -->
+    <script src="~/js/filesaver.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <!-- END Excel download -->
 
 </head>
 <!-- END HEAD -->
@@ -68,16 +83,16 @@
                         </li>
 
                         <li>
-                            <a asp-action="Get_mul" asp-controller="Action">
+                            <a asp-action="Get" asp-controller="Action">
                                 Q3
                             </a>
                         </li>
 
                         @*<li>
-                            <a asp-action="Get" asp-controller="Pending">
-                                Pending
-                            </a>
-                        </li>*@
+                                <a asp-action="Get" asp-controller="Pending">
+                                    Pending
+                                </a>
+                            </li>*@
 
 
 
@@ -103,7 +118,7 @@
                                                             <i class="icon-user"></i> User Role
                                                         </a>
                                                     </li>
-                                                <li>
+                                                    <li>
                                                         <a asp-action="Approval" asp-controller="Admin">
                                                             <i class="icon-user"></i> Approval List
                                                         </a>
@@ -127,30 +142,30 @@
                         <li class="dropdown dropdown-user dropdown-dark" style="position: absolute; right: 0px;top:0px">
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <a id="userinfo" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" data-user="@User.GetSpecificClaim("Ntlogin")" data-display-name="@User.GetSpecificClaim("UserName")" data-email="@User.GetSpecificClaim("Email")">
-                                    <img alt="" class="img-circle" src="~/assets/admin/layout3/img/logout.png" style="width: 25px">
-                                    Hi @User.GetSpecificClaim("UserName") (@User.GetSpecificClaim("Ntlogin"))
-                                </a>
+                            <a id="userinfo" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" data-user="@User.GetSpecificClaim("Ntlogin")" data-display-name="@User.GetSpecificClaim("UserName")" data-email="@User.GetSpecificClaim("Email")">
+                                <img alt="" class="img-circle" src="~/assets/admin/layout3/img/logout.png" style="width: 25px">
+                                Hi @User.GetSpecificClaim("UserName") (@User.GetSpecificClaim("Ntlogin"))
+                            </a>
                             }
                             else
                             {
-                                <a id="userinfo" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                    <img alt="" class="img-circle" src="~/assets/admin/layout3/img/logout.png" style="width: 25px">
-                                </a>
+                            <a id="userinfo" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <img alt="" class="img-circle" src="~/assets/admin/layout3/img/logout.png" style="width: 25px">
+                            </a>
                             }
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                                        <a asp-action="Logout" asp-controller="Account">
-                                            <i class="icon-key"></i> Log Out
-                                        </a>
+                                    <a asp-action="Logout" asp-controller="Account">
+                                        <i class="icon-key"></i> Log Out
+                                    </a>
                                     }
                                     else
                                     {
-                                        <a asp-action="Login" asp-controller="Account">
-                                            <i class="icon-key"></i> Log In
-                                        </a>
+                                    <a asp-action="Login" asp-controller="Account">
+                                        <i class="icon-key"></i> Log In
+                                    </a>
                                     }
                                 </li>
                             </ul>
@@ -237,7 +252,8 @@
 
     <script src="~/js/site.js"></script>
     <!-- END IDLE SECTION -->
-    <script src="~/js/bootbox.js/bootbox.js"></script>
+
+      <script src="~/js/bootbox.js/bootbox.js"></script>
     <script src="~/js/jquery-validation/jquery.validate.js"></script>
     <script src="~/js/twbs-pagination/jquery.twbsPagination.js"></script>
 

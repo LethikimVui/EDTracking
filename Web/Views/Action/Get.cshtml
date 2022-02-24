@@ -1,16 +1,13 @@
-﻿@model List<SharedObjects.ValueObjects.VAction>;
-@using SharedObjects.Extensions;
-
-@{
+﻿@{
     var customers = ViewData["customers"] as List<SharedObjects.ValueObjects.VCustomer>;
-    var partNumbers = ViewData["partNumbers"] as List<SharedObjects.ValueObjects.VPartNumber>;
-    var ww = ViewData["ww"] as List<SharedObjects.ValueObjects.VWorkWeek>;
+    //var partNumbers = ViewData["partNumbers"] as List<SharedObjects.ValueObjects.VPartNumber>;
+    //var ww = ViewData["ww"] as List<SharedObjects.ValueObjects.VWorkWeek>;
     ViewData["Title"] = "Q3";
 }
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12" style="min-height: auto !important;height: auto !important;width: auto !important">
+        <div class="col-md-12" style="min-height: auto !important;height: auto !important;">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet light" style="min-height: auto !important;height: auto !important">
                 <div class="portlet-title">
@@ -20,174 +17,67 @@
                             Q3
                         </span>
                     </div>
-                    <div class="col-md-1 pull-left">
-                        <label class="text-center bold font-green-sharp" for="">Part Number</label>
-                        <select class="form-control" id="txt-pn" style="height: 34px !important; color: mediumvioletred">
-                            <option value="">--Please Select--</option>
-
-                            @foreach (var item in partNumbers.OrderBy(c=>c.Pn).ToList())
-                            {
-                                <option value="">@item.Pn</option>
-                            }
-                        </select>
-                    </div> <div class="col-md-1 pull-left">
-                        <label class="text-center bold font-green-sharp" for="">Work Week</label>
-                        <select class="form-control" id="txt-ww" style="height: 34px !important; color: mediumvioletred">
-                            <option value="">--Please Select--</option>
-
-                            @foreach (var item in ww.OrderBy(c => c.WWyy).ToList())
-                            {
-                                <option value="">@item.WWyy</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="col-md-1 pull-left">
+                    <div class="form-group col-md-2 pull-left">
                         <label class="text-center bold font-green-sharp" for="">Customer</label>
-                        <select class="form-control" id="txt-customer" style="height: 34px !important; color: mediumvioletred">
+                        <select class="form-control" id="txt-wc-search" style="height: 34px !important; color: mediumvioletred">
                             <option value="">--Please Select--</option>
 
                             @foreach (var item in customers.OrderByDescending(c => c.CustId).ToList())
                             {
-                                <option value=@item.CustId>@item.CustName</option>
+                            <option value=@item.CustId>@item.CustName</option>
                             }
                         </select>
                     </div>
-                    @*<div class="form-group col-md-1">
-                        <label class="text-center bold font-green-sharp" for="">Serial Number</label>
-                        <label class="control-label"></label>
-                        <input id="txt-serialNumber" class="form-control col-md-3" style="color: mediumvioletred" />
+                    <div class="form-group col-md-2 pull-left">
+                        <label class="text-center bold font-green-sharp" for="">Work Week</label>
+                        <select class="form-control" id="txt-ww-search" style="height: 34px !important; color: mediumvioletred">
+                            @*<option value="">--Please Select--</option>*@
+
+                            @*@foreach (var item in ww.OrderBy(c => c.WWyy).ToList())
+                {
+                    <option value=@item.WWyy>@item.WWyy</option>
+                }*@
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2 pull-left">
+                        <label class="text-center bold font-green-sharp" for="">Part Number</label>
+                        <select class="form-control" id="txt-pn-search" style="height: 34px !important; color: mediumvioletred">
+                            <option value="">--Please Select--</option>
+
+                            @*@foreach (var item in partNumbers.OrderBy(c => c.Pn).ToList())
+                {
+                    <option value=@item.Pn>@item.Pn</option>
+                }*@
+                        </select>
+                    </div>
+                   
+                    @*<div class="form-group col-md-2 pull-left">
+                        <label class="text-center bold font-green-sharp" for="animals">Animals</label>
+                        <select multiple name="animals" id="animals" class="filter-multi-select">
+                            <option value="bear">Bear</option>
+                            <option value="ant">Ant</option>
+                            <option value="salamander">Salamander</option>
+                            <option value="owl">Owl</option>
+                            <option value="frog">Frog</option>
+                            <option value="shark">Shark</option>
+                        </select>
                     </div>*@
-
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                            <tr class="text-center bold">
-                                <td>WorkWeek</td>
-                                <td>Workcell</td>
-                                <td>Part Number</td>
-                                <td>Date code</td>
-                                <td>Qty Impact</td>
-                                <td>Failure mode</td>
-                                <td>Root Cause</td>
-                                <td>Containment Action</td>
-                                <td>Corrective and Preventive Action</td>
-                                <td>Attachment</td>
-                                <td>Parts Consigned or Turnkey</td>
-                                <td>FA No.</td>
-                                @*<td>SQE latest status</td>*@
-                                <td>MFR FA Result</td>
-                                <td>FIA needed</td>
-                                <td>FIA No.</td>
-                                <td>Responsible Person</td>
-                                @*<td>Acknowledged by WC TE Lead?</td>*@
-                                <td>Weekly Status</td>
-                                <td>Activity Log</td>
-                                <td>Record Aging</td>
-                                <td>Overal Status</td>
-                                @if (User.IsInRole("Debug User") || User.IsInRole("System Admin") || User.IsInRole("Approval Owner"))
-                                {
-                                    <td style="width:100px">Modification</td>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody id="table-data">
-
-                            @foreach (var item in Model)
-                            {
-                                <tr class="text-center">
-                                    <td id="">@item.Wwyy</td>
-                                    <td id="">@item.CustName</td>
-                                    <td id="">@item.Pn</td>
-                                    <td id="">@item.DateCode</td>
-                                    <td id="">@item.Qty</td>
-                                    <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.FailureMode</textarea></td>
-                                    <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.RootCause</textarea></td>
-                                    <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.ContainmentAction</textarea></td>
-                                    <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.CorrectiveandPreventiveAction</textarea></td>
-                                    <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.CorrectiveandPreventiveAction</textarea></td>
-                                    @{ var pct = "" as string;
-                                        if (item.PartsCosignedOrTurnkey == "1")
-                                        {
-                                            pct = "Parts Cosigned";
-                                        }
-                                        else if (item.PartsCosignedOrTurnkey == "2")
-                                        {
-                                            pct = "Turnkey";
-                                        }
-                                        else
-                                        {
-                                            pct = "";
-                                        }
-                                        <td id="" class="cell">@pct</td>
-                                    }
-
-                                    <td id="" class="cell">@item.Fano</td>
-                                    @*<td id="" class="cell">@item.SqelatestStatus</td>*@
-                                    <td id="" class="cell">@item.Mfrfaresult</td>
-                                    @{ var fia = "" as string;
-                                        @if (item.Fianeeded == "1")
-                                        {
-                                            fia = "Yes";
-                                        }
-                                        else if (item.Fianeeded == "0")
-                                        {
-                                            fia = "No";
-                                        }
-                                        else
-                                        {
-                                            fia = "";
-                                        }
-                                        <td id="" class="cell">@fia</td>
-                                    }
-
-                                    <td id="" class="cell">@item.Fiano</td>
-                                    <td id="" class="cell">@item.ResponsiblePerson</td>
-
-                                    @*@{ var isapproved = "" as string;
-                                            @if (item.IsApproved == "4")
-                                            {
-                                                isapproved = "Acknowledged";
-                                            }
-                                            else
-                                            {
-                                                isapproved = "";
-                                            }
-                                            <td id="" class="cell">@isapproved</td>
-                                        }*@
-
-                                    <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.WeeklyStatus</textarea></td>
-                                    <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.Remark</textarea></td>
-                                    <td id="" class="cell">@item.Aging</td>
-                                    @if (item.Status == 1)
-                                    {
-                                        <td id="" style="background-color:lightblue">Open</td>
-                                    }
-                                    else if (item.Status == 2)
-                                    {
-                                        <td id="" style="background-color:orange">Pending Approval</td>
-                                    }
-                                    else
-                                    {
-                                        <td id="" style="background-color:green">Closed</td>
-                                    }
-                                    <td class="text-center">
-                                        @if (item.Status == 1 && (User.IsInRole("Debug User") || User.IsInRole("System Admin")))
-                                        {
-                                            <a id="btn-edit" class="btn default btn-xs red delete" data-id="@item.ActionId" title="Edit" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-edit"></span></a>
-                                        }
-                                        @if (item.Status == 2 && User.IsInRole("Approval Owner"))
-                                        {
-                                            @*<a id="btn-approve" class="btn default btn-xs red" data-id="@item.ActionId" title="Approve" data-toggle="modal" data-target="#modal"> <span class="glyphicon glyphicon-ok"></span></a>*@
-                                            @*<a id="btn" class="btn default btn-xs red" data-id="@item.ActionId" title="Ackowledge" data-toggle="modal" data-target="#modal"> <span class="glyphicon glyphicon-remove"></span></a>*@
-                                            <button id="btn" data-id="@item.ActionId" data-toggle="modal" data-target="#modal" type="button" class="btn blue">Acknowledge</button>
-                                        }
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                    <div class="form-group col-md-12">
+                        <a class="btn btn-success" id="btn-search">Search</a>
+                        <a class="btn btn-success" id="btn-export">Export</a>
+                        <a class="btn btn-success" id="btn-reset">Reset</a>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="container-fluid">
+
+    <div id="tbl-content">
+
+    </div>
+    <div class="pagination" id="pagination">
     </div>
 </div>
 
@@ -220,7 +110,7 @@
                 <div class="form-group">
                     <label for="">Date Code</label>
                     <input type="text" class="form-control" id="txt-datecode" name="datecode" autocomplete="off" />
-                    @*<input type="text" class="form-control" id="txt-datecode">*@
+
                 </div>
                 <div class="form-group">
                     <label for=""> Qty Impact</label>
@@ -255,10 +145,6 @@
                     <label for="">FA No.</label>
                     <input type="text" class="form-control" id="txt-fano" name="fano" autocomplete="off" />
                 </div>
-                @*<div class="form-group">
-                        <label>SQE latest status</label>
-                        <input type="text" class="form-control" id="txt-sqe" name="sqe" autocomplete="off"/>
-                    </div>*@
                 <div class="form-group">
                     <label for=""> MFR FA Result</label>
                     <input type="text" class="form-control" id="txt-mfr" name="mfr" autocomplete="off" />
@@ -284,7 +170,6 @@
                     <textarea class="form-control" id="txt-ws" name="ws" rows="7"></textarea>
                 </div>
                 <div class="form-group">
-                    @*<input id="upload" type=file multiple name="files" onclick="this.value=''" accept=".xlsx">*@
                     <input id="attachment" type=file multiple name="files" onclick="this.value=''" accept=".xlsx">
                 </div>
                 <div id="fileList">
@@ -335,7 +220,8 @@
 
 @section Scripts{
     <script src="~/js/ckeditor/ckeditor.js"></script>
-    <script src="~/js/action.js"></script>
-    @*<script src="~/js/pending.js"></script>*@
+    <script type="text/javascript" src="~/js/common.js"></script>
+    <script src="~/js/action-mul.js"></script>
+    @*<script src="~/js/multi-selection-config.js"></script>*@
 }
 

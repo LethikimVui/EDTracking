@@ -147,5 +147,4 @@ C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTrack
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\Razor\Views\Pending\Get.cshtml.g.cs
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\Razor\Views\Admin\Approval.cshtml.g.cs
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\Razor\Views\Admin\Get.cshtml.g.cs
-C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\Razor\Views\Action\Get_mul.cshtml.g.cs
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\Razor\Views\Action\Get_partial.cshtml.g.cs

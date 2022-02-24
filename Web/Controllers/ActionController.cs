@@ -24,22 +24,13 @@ namespace Web.Controllers
             this.adminService = adminService;
             this.commonService = commonService;
         }
-        //public async Task<IActionResult> Get()
-        //{
-        //    var NtLogin = User.GetSpecificClaim("Ntlogin");
-        //    ViewData["customers"] = await commonService.Master_Customer_Get(NtLogin);
-        //    ViewData["partNumbers"] = await commonService.PartNumber_get();
-        //    ViewData["ww"] = await commonService.WorkWeek_get();
-        //    var results = await actionService.Get(0);
-        //    return View(results);
-        //}
 
-        public async Task<IActionResult> Get_mul()
+        public async Task<IActionResult> Get()
         {
             var NtLogin = User.GetSpecificClaim("Ntlogin");
             ViewData["customers"] = await commonService.Master_Customer_Get(NtLogin);
-            ViewData["partNumbers"] = await commonService.PartNumber_get();
-            ViewData["ww"] = await commonService.WorkWeek_get();
+            //ViewData["partNumbers"] = await commonService.PartNumber_get();
+            //ViewData["ww"] = await commonService.WorkWeek_get();
             //var results = await actionService.Get(0);
             return View();
         }
@@ -49,7 +40,12 @@ namespace Web.Controllers
             var result = await actionService.Action_get_mul(model);
             return PartialView(result);
         }
-
+        [HttpPost]
+        public async Task<IActionResult> Action_export([FromBody] ActionViewModel model)
+        {
+            var results = await actionService.Action_export(model);
+            return Json(new { result = results });
+        }
         [HttpPost]
         public async Task<IActionResult> GetById(int Id)
         {
@@ -68,7 +64,7 @@ namespace Web.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> Acknowledge([FromBody] ActionViewModel model)
-        {         
+        {
             var result = await actionService.Acknowledge(model);
             return Json(new { results = result });
         }
@@ -101,7 +97,7 @@ namespace Web.Controllers
             body += "<p>Regards!</p>";
             body += "<p>********************</p>";
             body += "<p>This is Auto Email, please do not reply!</p>";
-            message.Subject = "["+ww +"-"+custName+"] " + "Pending item: "+ partNumber;
+            message.Subject = "[" + ww + "-" + custName + "] " + "Pending item: " + partNumber;
             message.Body = body;
             message.IsBodyHtml = true;
             smtp.Send(message);
