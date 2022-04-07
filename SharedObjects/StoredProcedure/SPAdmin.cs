@@ -24,5 +24,7 @@ namespace SharedObjects.StoredProcedure
         public static string Master_Approval_delete = "usp_Master_Approval_delete @p0,@p1";
 
         public static string Master_Approval_Get_By_actionId = "usp_Master_Approval_Get_By_actionId @p0";
+        public static string Access_UserRole_Get_By_ActionId = "usp_Access_UserRole_Get_By_ActionId @p0";
+        
     }
 }

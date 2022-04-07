@@ -70,5 +70,29 @@ namespace Services.Services
             }
             return result;
         }
+
+        public async Task<ResponseResult> Action_update(ActionViewModel model)
+        {
+            ResponseResult result = new ResponseResult();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            using (var response = await httpClient.PostAsync("api/action/Action_update", content))
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                result = JsonConvert.DeserializeObject<ResponseResult>(apiResponse);
+            }
+            return result;
+        }
+
+        public async Task<List<VAction>> Action_get(ActionViewModel model)
+        {
+            var results = new List<VAction>();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            using (var response = await httpClient.PostAsync("api/Action/Action_get/", content))
+            {
+                var apiResponse = await response.Content.ReadAsStringAsync();
+                results = JsonConvert.DeserializeObject<List<VAction>>(apiResponse);
+            }
+            return results;
+        }
     }
 }

@@ -37,6 +37,14 @@ namespace API.Controllers
             var results = await context.Query<VAction>().AsNoTracking().FromSql(SPAction.Action_get_mul, model.CustId, model.Wwyy, model.Pn).ToListAsync();
             return results;
         }
+
+        [HttpPost("Action_get")]
+        [Obsolete()]
+        public async Task<List<VAction>> Action_get([FromBody] ActionViewModel model)
+        {
+            var results = await context.Query<VAction>().AsNoTracking().FromSql(SPAction.Action_get,model.ActionId, model.CustId, model.Wwyy, model.Pn, model.Status).ToListAsync();
+            return results;
+        }
         [HttpPost("Action_export")]
         [Obsolete()]
         public async Task<List<VAction_Export>> Action_export([FromBody] ActionViewModel model)
@@ -51,6 +59,22 @@ namespace API.Controllers
             try
             {
                 await context.Database.ExecuteSqlCommandAsync(SPAction.Action_insert_single, model.ActionId, model.ActionCode, model.DateCode, model.FailureMode, model.RootCause, model.ContainmentAction, model.CorrectiveandPreventiveAction, model.PartsCosignedOrTurnkey, model.Fano, model.SqelatestStatus, model.Mfrfaresult, model.Fianeeded, model.Fiano, model.ResponsiblePerson, model.Remark, model.WeeklyStatus, model.UpdatedBy);
+                return Ok(new ResponseResult(200));
+            }
+            catch (Exception)
+            {
+                return BadRequest(new ResponseResult(400, "Save failed"));
+            }
+
+        }
+
+        [HttpPost("Action_update")]
+        [Obsolete]
+        public async Task<IActionResult> Action_update([FromBody] ActionViewModel model)
+        {
+            try
+            {
+                await context.Database.ExecuteSqlCommandAsync(SPAction.Action_update, model.ActionId, model.ActionCode, model.DateCode, model.FailureMode, model.RootCause, model.ContainmentAction, model.CorrectiveandPreventiveAction, model.PartsCosignedOrTurnkey, model.Fano, model.SqelatestStatus, model.Mfrfaresult, model.Fianeeded, model.Fiano, model.ResponsiblePerson, model.Remark, model.WeeklyStatus, model.FileName, model.UpdatedBy, model.UpdatedName);
                 return Ok(new ResponseResult(200));
             }
             catch (Exception)

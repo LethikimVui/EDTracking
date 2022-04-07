@@ -1,6 +1,6 @@
 ﻿@{
     var customers = ViewData["customers"] as List<SharedObjects.ValueObjects.VCustomer>;
-    //var partNumbers = ViewData["partNumbers"] as List<SharedObjects.ValueObjects.VPartNumber>;
+    var status = ViewData["status"] as List<SharedObjects.ValueObjects.VStatus>;
     //var ww = ViewData["ww"] as List<SharedObjects.ValueObjects.VWorkWeek>;
     ViewData["Title"] = "Q3";
 }
@@ -19,38 +19,38 @@
                     </div>
                     <div class="form-group col-md-2 pull-left">
                         <label class="text-center bold font-green-sharp" for="">Customer</label>
-                        <select class="form-control" id="txt-wc-search" style="height: 34px !important; color: mediumvioletred">
+                        <select class="form-control" name="wc-search" id="txt-wc-search" style="height: 34px !important; color: mediumvioletred">
                             <option value="">--Please Select--</option>
-
                             @foreach (var item in customers.OrderByDescending(c => c.CustId).ToList())
                             {
-                            <option value=@item.CustId>@item.CustName</option>
+                                <option value=@item.CustId>@item.CustName</option>
                             }
                         </select>
                     </div>
                     <div class="form-group col-md-2 pull-left">
                         <label class="text-center bold font-green-sharp" for="">Work Week</label>
-                        <select class="form-control" id="txt-ww-search" style="height: 34px !important; color: mediumvioletred">
-                            @*<option value="">--Please Select--</option>*@
-
-                            @*@foreach (var item in ww.OrderBy(c => c.WWyy).ToList())
-                {
-                    <option value=@item.WWyy>@item.WWyy</option>
-                }*@
+                        <select class="form-control" name="ww-search" id="txt-ww-search" style="height: 34px !important; color: mediumvioletred">
                         </select>
+
                     </div>
                     <div class="form-group col-md-2 pull-left">
                         <label class="text-center bold font-green-sharp" for="">Part Number</label>
                         <select class="form-control" id="txt-pn-search" style="height: 34px !important; color: mediumvioletred">
-                            <option value="">--Please Select--</option>
-
-                            @*@foreach (var item in partNumbers.OrderBy(c => c.Pn).ToList())
-                {
-                    <option value=@item.Pn>@item.Pn</option>
-                }*@
                         </select>
                     </div>
-                   
+                    <div class="form-group col-md-2 pull-left">
+                        <label class="text-center bold font-green-sharp" for="">Status</label>
+                        <select multiple class="form-control multiple_select" name="status-search" id="txt-status-search" style="height: 34px !important; color: mediumvioletred">
+                            @*<option value="">--Please Select--</option>*@
+                            @foreach (var item in status.OrderByDescending(c => c.StatusId).ToList())
+                            {
+                                <option value=@item.StatusId>@item.Status</option>
+                            }
+                        </select>
+                    </div>
+
+
+                 
                     @*<div class="form-group col-md-2 pull-left">
                         <label class="text-center bold font-green-sharp" for="animals">Animals</label>
                         <select multiple name="animals" id="animals" class="filter-multi-select">
@@ -169,15 +169,13 @@
                     <label for="">Weekly Status</label>
                     <textarea class="form-control" id="txt-ws" name="ws" rows="7"></textarea>
                 </div>
+
                 <div class="form-group">
-                    <input id="attachment" type=file multiple name="files" onclick="this.value=''" accept=".xlsx">
+                    <input id="upload" type=file multiple name="files[]" accept=".xlsx">
                 </div>
                 <div id="fileList">
                 </div>
-                <div class="form-group">
-                    <label for="">Remark</label>
-                    <textarea class="form-control" id="txt-remark" name="remark" rows="3"></textarea>
-                </div>
+
             </form>
             <!-- Modal footer -->
             <div class="modal-footer" id="actionId">
@@ -210,8 +208,8 @@
 
             </form>
             <!-- Modal footer -->
-            <div class="modal-footer" id="actionId1">
-                <button type="button" class="btn blue" data-dismiss="modal" id="btn-acknowedge">Acknowedge</button>
+            <div class="modal-footer" id="confirm">
+                <button type="button" class="btn blue" data-dismiss="modal" id="btn-acknowedge-confirm">Acknowedge</button>
                 <button type="button" class="btn green" data-dismiss="modal" id="btn-complete">Complete</button>
             </div>
         </div>
@@ -222,6 +220,6 @@
     <script src="~/js/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="~/js/common.js"></script>
     <script src="~/js/action-mul.js"></script>
-    @*<script src="~/js/multi-selection-config.js"></script>*@
+    <script src="~/js/multi-selection-config.js"></script>
 }
 

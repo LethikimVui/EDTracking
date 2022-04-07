@@ -28,7 +28,14 @@ namespace API.Controllers
         {
             var results = await context.Query<VRole>().AsNoTracking().FromSql(SPCommon.Access_Role_get).ToListAsync();
             return results;
-        }    
+        }
+        [HttpGet("Master_Status_get")]
+        [Obsolete]
+        public async Task<List<VStatus>> Master_Status_get()
+        {
+            var results = await context.Query<VStatus>().AsNoTracking().FromSql(SPCommon.Master_Status_get).ToListAsync();
+            return results;
+        }
         [HttpGet("PartNumber_get/{custId}")]
         [Obsolete]
         public async Task<List<VPartNumber>> PartNumber_get(int custId)

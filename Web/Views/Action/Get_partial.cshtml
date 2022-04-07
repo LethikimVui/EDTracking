@@ -40,81 +40,97 @@
 
                         @foreach (var item in Model)
                         {
-                        <tr class="text-center">
-                            <td id="">@item.Wwyy</td>
-                            <td id="">@item.CustName</td>
-                            <td id="">@item.Pn</td>
-                            <td id="">@item.Qty</td>
-                            <td id="">@item.DateCode</td>
-                            <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.FailureMode</textarea></td>
-                            <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.RootCause</textarea></td>
-                            <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.ContainmentAction</textarea></td>
-                            <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.CorrectiveandPreventiveAction</textarea></td>
-                            <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.CorrectiveandPreventiveAction</textarea></td>
-                            @{ var pct = "" as string;
-                                if (item.PartsCosignedOrTurnkey == "1")
-                                {
-                                    pct = "Parts Cosigned";
-                                }
-                                else if (item.PartsCosignedOrTurnkey == "2")
-                                {
-                                    pct = "Turnkey";
-                                }
-                                else
-                                {
-                                    pct = "";
-                                }
-                                <td id="" class="cell">@pct</td>
-                            }
+                            <tr class="text-center">
+                                <td id="">@item.Wwyy</td>
+                                <td id="">@item.CustName</td>
+                                <td id="">@item.Pn</td>
+                                <td id="">@item.Qty</td>
+                                <td id="">@item.DateCode</td>
+                                <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.FailureMode</textarea></td>
+                                <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.RootCause</textarea></td>
+                                <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.ContainmentAction</textarea></td>
+                                <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.CorrectiveandPreventiveAction</textarea></td>
 
-                            <td id="" class="cell">@item.Fano</td>
-                            @*<td id="" class="cell">@item.Mfrfaresult</td>*@
-                            <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.Mfrfaresult</textarea></td>
 
-                            @{ var fia = "" as string;
-                                @if (item.Fianeeded == "1")
-                                {
-                                    fia = "Yes";
-                                }
-                                else if (item.Fianeeded == "0")
-                                {
-                                    fia = "No";
-                                }
-                                else
-                                {
-                                    fia = "";
-                                }
-                                <td id="" class="cell">@fia</td>
-                            }
+                                @* <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.FileName</textarea></td>*@
+                                <td id="">
+                                    @if (item.FileName != null)
+                                    {
+                                        @foreach (var file in item.FileName.Split(';'))
+                                        {
+                                            <a class="wrapper" id="btn" href="@Url.Action("DownloadFile", "Action", new { fileName = @file })">@file</a>
+                                            <br />
+                                        }
+                                    }
+                                </td>
 
-                            <td id="" class="cell">@item.Fiano</td>
-                            <td id="" class="cell">@item.ResponsiblePerson</td>
+                                @{ var pct = "" as string;
+                                    if (item.PartsCosignedOrTurnkey == "1")
+                                    {
+                                        pct = "Parts Cosigned";
+                                    }
+                                    else if (item.PartsCosignedOrTurnkey == "2")
+                                    {
+                                        pct = "Turnkey";
+                                    }
+                                    else
+                                    {
+                                        pct = "";
+                                    }
+                                    <td id="" class="cell">@pct</td>
+                                }
 
-                            <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.WeeklyStatus</textarea></td>
-                            <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.Remark</textarea></td>
-                            <td id="" class="cell">@item.Aging</td>
-                            @if (item.Status == 1)
-                            {
-                                <td id="" style="background-color:lightblue">Open</td>
-                            }
-                            else if (item.Status == 2)
-                            {
-                                <td id="" style="background-color:orange">Pending Approval</td>
-                            }
-                            else
-                            {
-                                <td id="" style="background-color:green">Closed</td>
-                            }
-                            <td class="text-center">
-                                @if (item.Status == 1 && (User.IsInRole("Debug User") || User.IsInRole("System Admin")))
-                                {
-                                    <a id="btn-edit" class="btn default btn-xs red delete" data-id="@item.ActionId" title="Edit" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-edit"></span></a>
+                                <td id="" class="cell">@item.Fano</td>
+                                <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.Mfrfaresult</textarea></td>
+
+                                @{ var fia = "" as string;
+                                    @if (item.Fianeeded == "1")
+                                    {
+                                        fia = "Yes";
+                                    }
+                                    else if (item.Fianeeded == "0")
+                                    {
+                                        fia = "No";
+                                    }
+                                    else
+                                    {
+                                        fia = "";
+                                    }
+                                    <td id="" class="cell">@fia</td>
                                 }
-                                @if (item.Status == 2 && User.IsInRole("Approval Owner"))
-                                {<button id="btn" data-id="@item.ActionId" data-toggle="modal" data-target="#modal" type="button" class="btn blue">Acknowledge</button>
-                                }
-                            </td>
-                        </tr>
+
+                                <td id="" class="cell">@item.Fiano</td>
+                                <td id="" class="cell">@item.ResponsiblePerson</td>
+
+                                <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.WeeklyStatus</textarea></td>
+                                <td id=""><textarea class="cell" rows="6" cols="40" disabled>@item.Remark</textarea></td>
+                                <td id="" class="cell">@item.Aging</td>
+                                @*@if (item.Status == 1)
+                                    {
+                                        <td id="" style="background-color:lightblue">Open</td>
+                                    }
+                                    else if (item.Status == 2)
+                                    {
+                                        <td id="" style="background-color:orange">Pending Approval</td>
+                                    }
+                                    else
+                                    {
+                                        <td id="" style="background-color:green">Closed</td>
+                                    }*@
+
+                                <td id="" style="background-color:@item.ColorCode">@item.Status</td>
+
+
+                                <td class="text-center">
+                                    @if (item.StatusId == 1 && (User.IsInRole("Debug User") || User.IsInRole("System Admin")))
+                                    {
+                                        <a id="btn-edit" class="btn default btn-xs red delete" data-id="@item.ActionId" title="Edit" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-edit"></span></a>
+                                    }
+                                    @if (item.StatusId == 2 && User.IsInRole("Approval Owner"))
+                                    {<button id="btn-acknowledge" data-id="@item.ActionId" data-pn="@item.Pn" data-wwyy="@item.Wwyy" data-custname="@item.CustName" data-toggle="modal" data-target="#modal" type="button" class="btn blue">Acknowledge</button>
+                                    }
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>

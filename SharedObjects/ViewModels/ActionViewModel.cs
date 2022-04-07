@@ -29,7 +29,13 @@ namespace SharedObjects.ViewModels
         public string ApprovedBy { get; set; }
         public string Remark { get; set; }
         public string UpdatedBy { get; set; }
+        public string UpdatedName { get; set; }
+        public string UpdatedEmail { get; set; }
         public string DateCode { get; set; }
         public string WeeklyStatus { get; set; }
+        public string FileName { get; set; }
+        public int StatusId { get; set; }
+        public string Status { get; set; }
+
     }
 }

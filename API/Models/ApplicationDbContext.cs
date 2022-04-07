@@ -34,6 +34,7 @@ namespace API.Models
         public virtual DbQuery<VCustomer> VCustomer { get; set; }
         public virtual DbQuery<VPartNumber> VPartNumber { get; set; }
         public virtual DbQuery<VWorkWeek> VWorkWeek { get; set; }
+        public virtual DbQuery<VStatus> VStatus { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

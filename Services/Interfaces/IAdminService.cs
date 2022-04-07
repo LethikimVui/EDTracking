@@ -29,5 +29,8 @@ namespace Services.Interfaces
         Task<ResponseResult> Master_Approval_insert(UserRoleViewModel model);
         Task<ResponseResult> Master_Approval_update(UserRoleViewModel model);
         Task<ResponseResult> Master_Approval_delete(UserRoleViewModel model);
+
+        Task<List<VUserRole>> Access_UserRole_Get_By_ActionId(int id);
+
     }
 }

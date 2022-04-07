@@ -54,6 +54,16 @@ namespace Services.Services
             }
             return customer;
         }
-     
+
+        public async Task<List<VStatus>> Master_Status_get()
+        {
+            List<VStatus> userRoles = new List<VStatus>();
+            using (var response = await httpClient.GetAsync("api/Common/Master_Status_get"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                userRoles = JsonConvert.DeserializeObject<List<VStatus>>(apiResponse);
+            }
+            return userRoles;
+        }
     }
 }

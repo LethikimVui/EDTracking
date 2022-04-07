@@ -5,13 +5,21 @@
     $('body').off('click', '#btn-edit').on('click', '#btn-edit', Edit);
     $('body').off('click', '#btn-save').on('click', '#btn-save', Save);
     $('body').off('click', '#btn-submit').on('click', '#btn-submit', Submit);
-    $('body').off('click', '#btn-acknowedge').on('click', '#btn-acknowedge', Acknowledge);
+    $('body').off('click', '#btn-acknowedge-confirm').on('click', '#btn-acknowedge-confirm', Acknowledge);
     $('body').off('click', '#btn-complete').on('click', '#btn-complete', Complete);
-    $('body').off('click', '#btn').on('click', '#btn', Confirm);
+    $('body').off('click', '#btn-acknowledge').on('click', '#btn-acknowledge', Confirm);
 
     $('body').off('click', '#btn-export').on('click', '#btn-export', DownloadAsExcel);
 
     var user = document.getElementById('userinfo').getAttribute('data-user');
+    var name = document.getElementById('userinfo').getAttribute('data-display-name');
+    var email = document.getElementById('userinfo').getAttribute('data-email');
+
+    $('body').off('click', '#btn-test').on('click', '#btn-test', test);
+    function test() {
+        bootbox.alert($("#txt-status-search").val().toString());
+        //bootbox.alert($('#txt-status-search option:selected').text().toString());
+    }
 
     function Load() {
         $("#tbl-content").html("");
@@ -28,9 +36,16 @@
     }
 
     function Confirm() {
-        debugger
         var Id = parseInt($(this).data('id'));
-        $('#actionId1').val(Id);
+        var pn = document.getElementById('btn-acknowledge').getAttribute('data-pn');
+        var wwyy = document.getElementById('btn-acknowledge').getAttribute('data-wwyy');
+        var custname = document.getElementById('btn-acknowledge').getAttribute('data-custname');
+        $('#confirm').val(Id);
+        $('#confirm').attr('data-pn', pn.toString());
+        $('#confirm').attr('data-wwyy', wwyy.toString());
+        $('#confirm').attr('data-custname', custname.toString());
+
+        debugger
 
     }
     //FillBlankCell()
@@ -149,15 +164,16 @@
     function Submit() {
         if ($('#frm-save').valid()) {
 
-            //var selectedFile = document.getElementById('upload').files;
-            //debugger
-            //if (selectedFile.length) {
-            //    selectedFile = selectedFile[0];
-            //    var getDate = new Date();
-            //    var date = getDate.getFullYear().toString() + (getDate.getMonth() + 1) + getDate.getDate() + getDate.getHours() + getDate.getMinutes() + getDate.getSeconds() + getDate.getMilliseconds();
-            //    var fileName = selectedFile.name.split('.')[0] + '_' + date + '.' + selectedFile.name.split('.')[1];
-            //    uploadFile(selectedFile, date);
-            //}
+            var fileName = "";
+            var getDate = new Date();
+            var date = getDate.getFullYear().toString() + (getDate.getMonth() + 1) + getDate.getDate() + getDate.getHours() + getDate.getMinutes() + getDate.getSeconds() + getDate.getMilliseconds();
+            var selectedFile = document.getElementById('upload').files;
+            if (selectedFile.length) {
+                for (let i = 0; i < selectedFile.length; i++) {
+                    fileName += selectedFile[i].name.split('.')[0] + '_' + date + '.' + selectedFile[i].name.split('.')[1] + ';';
+                    uploadFile(selectedFile[i], date);
+                }
+            }
 
             var model = new Object();
 
@@ -178,12 +194,16 @@
             model.WeeklyStatus = $('#txt-ws').val();
             model.Fiano = $('#txt-fiano').val();
             model.ResponsiblePerson = $('#txt-person').val();
-            model.Remark = $('#txt-rm').val() ? ': ' + $('#txt-rm').val() + '\r\n' : '\r\n'; //$('#txt-remark').val() + "\r\n";
+            model.Remark = $('#txt-rm').val() ? ': ' + $('#txt-rm').val() + '\r\n' : '\r\n';
+            model.FileName = fileName ? fileName : null;
             model.UpdatedBy = user;
+            model.UpdatedName = name;
+            model.UpdatedEmail = email;
+
             debugger
             $.ajax({
                 type: 'post',
-                url: '/action/insert',
+                url: '/action/Action_update',
                 data: JSON.stringify(model),
                 dataType: 'json',
                 contentType: 'application/json,; charset=utf-8',
@@ -191,7 +211,7 @@
                     var data = response.results;
                     debugger
                     if (data.statusCode == 200) {
-                        bootbox.alert("Submitted Successfully!", function () { window.location.reload(); })
+                        bootbox.alert("Submitted Successfully!", function () { $('#myModal').modal('hide'); LoadData(); })
                     }
                     else
                         bootbox.alert("Submitted Failed!")
@@ -199,16 +219,34 @@
             })
         }
     }
-
+    function handleFiles() {
+        debugger
+        if (!this.files.length) {
+            fileList.innerHTML = "<p>No files selected!</p>";
+        }
+        else {
+            fileList.innerHTML = "";
+            const list = document.createElement("ul");
+            fileList.appendChild(list);
+            for (let i = 0; i < this.files.length; i++) {
+                const li = document.createElement("li");
+                li.appendChild(document.createTextNode(this.files[i].name))
+                list.appendChild(li);
+            }
+        }
+    }
     function Edit() {
         $(".error").html('');
         $(".error").removeClass("error");
         var Id = parseInt($(this).data('id'));
+        var model = new Object();
+        model.ActionId = parseInt(Id);
         $.ajax({
             type: 'post',
-            url: '/action/getbyid',
+            url: '/action/Action_get',
             dataType: 'json',
-            data: { Id: Id },
+            data: JSON.stringify(model),
+            contentType: 'application/json,; charset=utf-8',
             success: function (response) {
                 var data = response.results[0]
                 debugger
@@ -230,61 +268,32 @@
                 $('#txt-ws').val(data.weeklyStatus);
                 $('#actionId').val(Id);
 
-                //const selectedFile = document.getElementById('attachment')
-                //fileList = document.getElementById("fileList");
-                //fileList.innerHTML = "";
-                //const list = document.createElement("ul");
-                //fileList.appendChild(list);
-                ////var form_data = new FormData();
-
-                //selectedFile.addEventListener("change", handleFiles, false);
-                //function handleFiles() {
-                //    debugger
-
-                //    for (let i = 0; i < this.files.length; i++) {
-                //        const li = document.createElement("li");
-
-                //        li.appendChild(document.createTextNode(this.files[i].name))
-                //        list.appendChild(li);
-                //        //form_data.append("files", this.files[i]);
-                //    }
-                //}
-                //function handleFiles() {
-                //    debugger
-                //    if (!this.files.length) {
-                //        fileList.innerHTML = "<p>No files selected!</p>";
-                //    } else {
-                //        fileList.innerHTML = "";
-                //        const list = document.createElement("ul");
-                //        fileList.appendChild(list);
-                //        for (let i = 0; i < this.files.length; i++) {
-                //            const li = document.createElement("li");
-                //            form_data.append("files", this.files[i]);
-                //            li.appendChild(document.createTextNode(this.files[i].name))
-                //            list.appendChild(li);
-                //        }
-                //    }
-                //}
             }
         })
+
+        var selectedFile = document.getElementById('upload')
+        selectedFile.value = "";
+        fileList = document.getElementById("fileList");
+        fileList.innerHTML = "";
+        const list = document.createElement("ul");
+        fileList.appendChild(list);
+        selectedFile.addEventListener("change", handleFiles, false);
     }
 
     function Save() {
-        var model = new Object();
-        //CKEDITOR.replace("txt-fm");
-        //var content = CKEDITOR.instances['txt-fm'].getData();
 
-        //const selectedFile = document.getElementById('attachment').files,
-        //    fileList = document.getElementById("fileList");
-        //debugger
-        //var getDate = new Date();
-        //var date = getDate.getFullYear().toString() + (getDate.getMonth() + 1) + getDate.getDate() + getDate.getHours() + getDate.getMinutes() + getDate.getSeconds() + getDate.getMilliseconds();
-        //var fileName = "";
-        //for (var i = 0; i < selectedFile.length; i++) {
-        //    console.log(selectedFile[i].name);
-        //    fileName = selectedFile[i].name.split('.')[0] + '_' + date + '.' + selectedFile[i].name.split('.')[1];
-        //    console.log(fileName);
-        //}
+        var fileName = "";
+        var getDate = new Date();
+        var date = getDate.getFullYear().toString() + (getDate.getMonth() + 1) + getDate.getDate() + getDate.getHours() + getDate.getMinutes() + getDate.getSeconds() + getDate.getMilliseconds();
+        var selectedFile = document.getElementById('upload').files;
+        if (selectedFile.length) {
+            for (let i = 0; i < selectedFile.length; i++) {
+                fileName += selectedFile[i].name.split('.')[0] + '_' + date + '.' + selectedFile[i].name.split('.')[1] + ';';
+                uploadFile(selectedFile[i], date);
+            }
+        }
+
+        var model = new Object();      
 
         model.ActionId = parseInt($('#actionId').val());
         model.ActionCode = 1 // save
@@ -299,14 +308,18 @@
         model.Fianeeded = parseInt($('#txt-fia').val()) ? parseInt($('#txt-fia').val()) : 0;
         model.Fiano = $('#txt-fiano').val();
         model.WeeklyStatus = $('#txt-ws').val();
-
         model.ResponsiblePerson = $('#txt-person').val();
-        model.Remark = $('#txt-rm').val() ? ': ' + $('#txt-rm').val() + '\r\n' : '\r\n'; //$('#txt-remark').val() + "\r\n";      
+        model.Remark = $('#txt-rm').val() ? ': ' + $('#txt-rm').val() + '\r\n' : '\r\n'; //$('#txt-remark').val() + "\r\n";    
+        model.FileName = fileName ? fileName : null;
         model.UpdatedBy = user;
+        model.UpdatedName = name;
+        model.UpdatedEmail = email;
+
+
         debugger
         $.ajax({
             type: 'post',
-            url: '/action/insert',
+            url: '/action/Action_update',
             data: JSON.stringify(model),
             dataType: 'json',
             contentType: 'application/json,; charset=utf-8',
@@ -314,7 +327,7 @@
                 var data = response.results;
                 debugger
                 if (data.statusCode == 200) {
-                    bootbox.alert("Save Successfully!", function () { window.location.reload(); })
+                    bootbox.alert("Save Successfully!", function () { LoadData(); })
                 }
                 else
                     bootbox.alert("Save Failed!")
@@ -323,13 +336,18 @@
     }
 
     function Acknowledge() {
-        var actionId = parseInt($('#actionId1').val());
+        var actionId = parseInt($('#confirm').val());
         var model = new Object();
 
         model.ActionId = actionId;
         model.ActionCode = 4; //Ackowledge
         model.Remark = $('#txt-rm').val() ? ': ' + $('#txt-rm').val() + '\r\n' : '\r\n';
         model.UpdatedBy = user;
+        model.UpdatedName = name;
+        model.UpdatedEmail = email;
+        model.CustName = document.getElementById('confirm').getAttribute('data-custname');
+        model.Pn = document.getElementById('confirm').getAttribute('data-pn');
+        model.WWyy = document.getElementById('confirm').getAttribute('data-wwyy');
         debugger
         $.ajax({
             type: 'post',
@@ -341,7 +359,7 @@
                 var data = response.results;
                 debugger
                 if (data.statusCode == 200) {
-                    bootbox.alert("Acknowledged", function () { window.location.reload(); })
+                    bootbox.alert("Acknowledged", function () { $('#myModal').modal('hide'); LoadData(); })
                 }
                 else {
                     bootbox.alert(data.message)
@@ -352,13 +370,17 @@
     }
 
     function Complete() {
-        var actionId = parseInt($('#actionId1').val());
+        var actionId = parseInt($('#confirm').val());
         var model = new Object();
-
         model.ActionId = actionId;
         model.ActionCode = 5; //Complete
         model.Remark = $('#txt-rm').val() ? ': ' + $('#txt-rm').val() + '\r\n' : '\r\n';
         model.UpdatedBy = user;
+        model.UpdatedEmail = email;
+
+        model.CustName = document.getElementById('confirm').getAttribute('data-custname');
+        model.Pn = document.getElementById('confirm').getAttribute('data-pn');
+        model.WWyy = document.getElementById('confirm').getAttribute('data-wwyy');
         debugger
         $.ajax({
             type: 'post',
@@ -370,7 +392,7 @@
                 var data = response.results;
                 debugger
                 if (data.statusCode == 200) {
-                    bootbox.alert("Completed", function () { window.location.reload(); })
+                    bootbox.alert("Completed", function () { $('#myModal').modal('hide');  LoadData(); })
                 }
                 else {
                     bootbox.alert(data.message)
@@ -386,6 +408,7 @@
         model.Wwyy = $('#txt-ww-search').val() ? $('#txt-ww-search').val() : null;
         model.CustId = parseInt($('#txt-wc-search').val());
         model.Pn = $('#txt-pn-search').val() ? $('#txt-pn-search').val() : null;
+        model.Status = $("#txt-status-search").val() ? $("#txt-status-search").val().toString() : null
         debugger
         $.ajax({
             type: 'post',
@@ -445,5 +468,24 @@
         debugger
         saveAs(data, filename + strDateTime + EXCEL_EXTENSION);
 
+    }
+
+    function uploadFile(_file, _date) {
+        var form_data = new FormData();
+        form_data.append("files", _file);
+        form_data.append("date", _date);
+        debugger
+        $.ajax({
+            type: 'post',
+            url: '/Action/UploadFile',
+            data: form_data,
+            contentType: false,
+            dataType: 'json',
+            processData: false,
+            cache: false,
+            success: function (data) {
+                //console.log(data)
+            }
+        })
     }
 })

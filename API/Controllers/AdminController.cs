@@ -110,7 +110,15 @@ namespace API.Controllers
         {
             var results = await context.Query<VUserRole>().AsNoTracking().FromSql(SPAdmin.Master_Approval_Get_By_Id, id).ToListAsync();
             return results;
-        } [HttpGet("Master_Approval_Get_By_actionId/{id}")]
+        }
+        [HttpGet("Access_UserRole_Get_By_ActionId/{id}")]
+        [Obsolete]
+        public async Task<List<VUserRole>> Access_UserRole_Get_By_ActionId(int id)
+        {
+            var results = await context.Query<VUserRole>().AsNoTracking().FromSql(SPAdmin.Access_UserRole_Get_By_ActionId, id).ToListAsync();
+            return results;
+        }
+        [HttpGet("Master_Approval_Get_By_actionId/{id}")]
         [Obsolete]
         public async Task<List<VUserRole>> Master_Approval_Get_By_actionId(int id)
         {

@@ -173,42 +173,43 @@
         this.name = name;
         var array = selectTarget.find('option').toArray();
         this.options = FilterMultiSelect.createOptions(this, name, array, args.items);
-        this.selectAllOption = FilterMultiSelect.createSelectAllOption(this, name, args.selectAllText); // filter box
+          this.selectAllOption = FilterMultiSelect.createSelectAllOption(this, name, args.selectAllText);
+          // filter box
 
-        this.filterInput = document.createElement('input');
-        this.filterInput.type = 'text';
-        this.filterInput.placeholder = args.filterText;
-        this.clearButton = document.createElement('button');
-        this.clearButton.type = 'button';
-        this.clearButton.innerHTML = '&times;';
-        this.filter = document.createElement('div');
-        this.filter.append(this.filterInput, this.clearButton); // items
+        //this.filterInput = document.createElement('input');
+        //this.filterInput.type = 'text';
+        //this.filterInput.placeholder = args.filterText;
+        //this.clearButton = document.createElement('button');
+        //this.clearButton.type = 'button';
+        //this.clearButton.innerHTML = '&times;';
+        //this.filter = document.createElement('div');
+        //this.filter.append(this.filterInput, this.clearButton); // items
 
-        this.items = document.createElement('div');
-        this.items.append(this.selectAllOption.getListItem());
-        this.options.forEach(function (o) {
-          return _this.items.append(o.getListItem());
-        }); // dropdown list
+        //this.items = document.createElement('div');
+        //this.items.append(this.selectAllOption.getListItem());
+        //this.options.forEach(function (o) {
+        //  return _this.items.append(o.getListItem());
+        //}); // dropdown list
 
-        this.dropDown = document.createElement('div');
-        this.dropDown.append(this.filter, this.items); // placeholder
+        //this.dropDown = document.createElement('div');
+        //this.dropDown.append(this.filter, this.items); // placeholder
 
-        this.placeholder = document.createElement('span');
-        this.placeholder.textContent = args.placeholderText;
-        this.selectedItems = document.createElement('span'); // viewbar
+        //this.placeholder = document.createElement('span');
+        //this.placeholder.textContent = args.placeholderText;
+        //this.selectedItems = document.createElement('span'); // viewbar
 
-        this.viewBar = document.createElement('div');
-        this.viewBar.append(this.placeholder, this.selectedItems);
-        this.div = document.createElement('div');
-        this.div.id = select.id;
-        this.div.append(this.viewBar, this.dropDown);
-        this.caseSensitive = args.caseSensitive;
-        this.disabled = select.disabled;
-        this.allowEnablingAndDisabling = args.allowEnablingAndDisabling;
-        this.filterText = '';
-        this.showing = new Array();
-        this.focusable = new Array();
-        this.itemFocus = -2; //magic number
+        //this.viewBar = document.createElement('div');
+        //this.viewBar.append(this.placeholder, this.selectedItems);
+        //this.div = document.createElement('div');
+        //this.div.id = select.id;
+        //this.div.append(this.viewBar, this.dropDown);
+        //this.caseSensitive = args.caseSensitive;
+        //this.disabled = select.disabled;
+        //this.allowEnablingAndDisabling = args.allowEnablingAndDisabling;
+        //this.filterText = '';
+        //this.showing = new Array();
+        //this.focusable = new Array();
+        //this.itemFocus = -2; //magic number
 
         this.initialize();
       }
@@ -315,12 +316,12 @@
           return o.initialize();
         });
         this.selectAllOption.initialize();
-        this.filterInput.className = 'form-control';
-        this.clearButton.tabIndex = -1;
-        this.filter.className = 'filter dropdown-item';
+        //this.filterInput.className = 'form-control';
+        //this.clearButton.tabIndex = -1;
+        //this.filter.className = 'filter dropdown-item';
         this.items.className = 'items dropdown-item';
         this.dropDown.className = 'dropdown-menu';
-        this.placeholder.className = 'placeholder';
+        //this.placeholder.className = 'placeholder';
         this.selectedItems.className = 'selected-items';
         this.viewBar.className = 'viewbar form-control dropdown-toggle';
         this.div.className = 'filter-multi-select dropdown';
@@ -763,10 +764,10 @@
           this.labelFor = document.createElement('label');
           this.labelFor.htmlFor = nchbx;
           this.labelFor.textContent = label;
-          this.div.append(this.checkbox, this.labelFor);
-          this.closeButton = document.createElement('button');
-          this.closeButton.type = 'button';
-          this.closeButton.innerHTML = '&times;';
+          //this.div.append(this.checkbox, this.labelFor);
+          //this.closeButton = document.createElement('button');
+          //this.closeButton.type = 'button';
+          //this.closeButton.innerHTML = '&times;';
           this.selectedItemBadge = document.createElement('span');
           this.selectedItemBadge.setAttribute('data-id', id);
           this.selectedItemBadge.textContent = label;
@@ -945,7 +946,7 @@
       args = $__default['default'].extend({}, $__default['default'].fn.filterMultiSelect.args, args); // factory defaults
 
       if (typeof args.placeholderText === 'undefined') args.placeholderText = 'nothing selected';
-      if (typeof args.filterText === 'undefined') args.filterText = 'Filter';
+      //if (typeof args.filterText === 'undefined') args.filterText = 'Filter';
       if (typeof args.selectAllText === 'undefined') args.selectAllText = 'Select All';
       if (typeof args.caseSensitive === 'undefined') args.caseSensitive = false;
       if (typeof args.allowEnablingAndDisabling === 'undefined') args.allowEnablingAndDisabling = true;

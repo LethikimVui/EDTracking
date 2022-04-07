@@ -1,4 +1,5 @@
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\Web.exe
+C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\ajax-loader.gif
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\admin\layout3\css\custom.css
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\admin\layout3\css\layout.css
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\admin\layout3\css\themes\blue-hoki.css
@@ -1004,8 +1005,8 @@ C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTrack
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\site.css
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\favicon.ico
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\about.js
+C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\action no use.js
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\action-mul.js
-C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\action.js
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\admin-approval.js
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\admin-user-role.js
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\bootbox.js\bootbox.js
@@ -1435,7 +1436,11 @@ C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTrack
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\ckeditor\vendor\promise.js
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\common.js
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\filesaver.js
+C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\filter-multi-select-bundle.js.map
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\filter-multi-select-bundle.min.js
+C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\filter-multi-select-bundle.min.js.map
+C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\FilterMultiSelect.js
+C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\FilterMultiSelect.js.map
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\jquery-validation\additional-methods.js
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\jquery-validation\additional-methods.min.js
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\Web\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\jquery-validation\jquery.validate.js

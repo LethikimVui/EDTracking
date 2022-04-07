@@ -12,5 +12,6 @@ namespace SharedObjects.StoredProcedure
         public static string Master_Customer_Get = "usp_Master_Customer_Get @p0";
         public static string PartNumber_get = "usp_PartNumber_get @p0";
         public static string WorkWeek_get = "usp_WorkWeek_get @p0";
+        public static string Master_Status_get = "ups_Master_Status_get";
     }
 }
