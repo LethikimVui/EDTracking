@@ -89,7 +89,7 @@ namespace API.Controllers
         {
             try
             {
-                await context.Database.ExecuteSqlCommandAsync(SPAction.Action_acknowledge, model.ActionId, model.ActionCode, model.Remark, model.UpdatedBy);
+                await context.Database.ExecuteSqlCommandAsync(SPAction.Action_acknowledge, model.ActionId, model.ActionCode, model.Remark, model.UpdatedBy, model.UpdatedName);
                 return Ok(new ResponseResult(200));
             }
             catch (Exception)

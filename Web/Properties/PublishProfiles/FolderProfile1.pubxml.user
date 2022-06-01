@@ -4,7 +4,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_PublishTargetUrl>\\vnhcmm0teapp02\EDMS\EDMS</_PublishTargetUrl>
-    <History>True|2022-04-07T09:14:15.2697373Z;True|2022-04-07T13:56:14.0425636+07:00;True|2022-04-07T13:16:29.0740036+07:00;True|2022-04-07T11:13:28.1168060+07:00;</History>
+    <_PublishTargetUrl>\\vnhcmm0teapp02\wwwroot\EDMS\EDMS</_PublishTargetUrl>
+    <History>True|2022-04-15T07:06:46.1952557Z;False|2022-04-15T14:04:49.9082950+07:00;True|2022-04-12T09:44:02.5444329+07:00;True|2022-04-12T09:37:16.4706108+07:00;True|2022-04-12T09:20:08.2191223+07:00;True|2022-04-07T16:14:15.2697373+07:00;True|2022-04-07T13:56:14.0425636+07:00;True|2022-04-07T13:16:29.0740036+07:00;True|2022-04-07T11:13:28.1168060+07:00;</History>
   </PropertyGroup>
 </Project>

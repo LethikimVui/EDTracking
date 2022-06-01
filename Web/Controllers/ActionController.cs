@@ -196,14 +196,14 @@ namespace Web.Controllers
                 }
             }
 
-            body += "<p>THIS IS TESTING EMAIL, PLEASE IGNORE</p>";
+           // body += "<p>THIS IS TESTING EMAIL, PLEASE IGNORE</p>";
             body += "<p>Hi,</p>";
 
-            body += "<p>There is an item pending for your review and approval. Please access to this link to proceed: http://vnhcmm0teapp02/edtracking/ </p>";
+            body += "<p>There is an item pending for your review and approval. Please access to this link to proceed: http://vnhcmm0teapp02/edms/ </p>";
             body += "<p>Regards!</p>";
             body += "<p>********************</p>";
             body += "<p>This is Auto Email, please do not reply!</p>";
-            message.Subject = "[Testing][" + model.Wwyy + "-" + model.CustName + "] " + "Pending item: " + model.Pn;
+            message.Subject = "[" + model.Wwyy + "-" + model.CustName + "] " + "Pending item: " + model.Pn;
             message.Body = body;
             message.IsBodyHtml = true;
             smtp.Send(message);
@@ -234,10 +234,10 @@ namespace Web.Controllers
 
             if (response == "Acknowledged")
             {
-                body += "<p>The item has been acknowledged and re-open to update the status. Please access <a href='http://vnhcmm0teapp02/edtracking/'>here</a> to get detail</p>";
+                body += "<p>The item has been acknowledged and re-open to update the status. Please access <a href='http://vnhcmm0teapp02/edms/'>here</a> to get detail</p>";
             }
             else
-                body += "<p>The item is closed. You may access <a href='http://vnhcmm0teapp02/edtracking/'>here</a> to get detail</p>";
+                body += "<p>The item is closed. You may access <a href='http://vnhcmm0teapp02/edms/'>here</a> to get detail</p>";
             body += " <p>This is automatic email, please do not reply</p>    Thanks";
 
             message.CC.Add(new MailAddress(model.UpdatedEmail));
@@ -249,7 +249,7 @@ namespace Web.Controllers
                     message.CC.Add(new MailAddress(email));
                 }
             }
-            message.Subject = "[Testing][" + model.Wwyy + "-" + model.CustName + "] " + model.Pn + " Has Been " + response;
+            message.Subject = "[" + model.Wwyy + "-" + model.CustName + "] " + model.Pn + " Has Been " + response;
             message.Body = body;
             message.IsBodyHtml = true;
             smtp.Send(message);

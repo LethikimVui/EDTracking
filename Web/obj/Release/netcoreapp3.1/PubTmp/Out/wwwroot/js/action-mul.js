@@ -376,6 +376,7 @@
         model.ActionCode = 5; //Complete
         model.Remark = $('#txt-rm').val() ? ': ' + $('#txt-rm').val() + '\r\n' : '\r\n';
         model.UpdatedBy = user;
+        model.UpdatedName = name;
         model.UpdatedEmail = email;
 
         model.CustName = document.getElementById('confirm').getAttribute('data-custname');
