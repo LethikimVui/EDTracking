@@ -6,3 +6,11 @@ C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTrack
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\SharedObjects\obj\Debug\SharedObjects.pdb
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\SharedObjects\bin\Debug\System.ComponentModel.Annotations.dll
 C:\Users\1099969\OneDrive - Jabil\Desktop\Development_Project\Web\GitHub\EDTracking\SharedObjects\obj\Debug\SharedObjects.csproj.CopyComplete
+C:\Users\1099969\Desktop\Development\GitHub\EDTracking\SharedObjects\bin\Debug\SharedObjects.dll
+C:\Users\1099969\Desktop\Development\GitHub\EDTracking\SharedObjects\bin\Debug\SharedObjects.pdb
+C:\Users\1099969\Desktop\Development\GitHub\EDTracking\SharedObjects\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\1099969\Desktop\Development\GitHub\EDTracking\SharedObjects\obj\Debug\SharedObjects.csproj.AssemblyReference.cache
+C:\Users\1099969\Desktop\Development\GitHub\EDTracking\SharedObjects\obj\Debug\SharedObjects.csproj.CoreCompileInputs.cache
+C:\Users\1099969\Desktop\Development\GitHub\EDTracking\SharedObjects\obj\Debug\SharedObjects.csproj.CopyComplete
+C:\Users\1099969\Desktop\Development\GitHub\EDTracking\SharedObjects\obj\Debug\SharedObjects.dll
+C:\Users\1099969\Desktop\Development\GitHub\EDTracking\SharedObjects\obj\Debug\SharedObjects.pdb

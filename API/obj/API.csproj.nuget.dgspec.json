@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1099969\\OneDrive - Jabil\\Desktop\\Development_Project\\Web\\GitHub\\EDTracking\\API\\API.csproj": {}
+    "C:\\Users\\1099969\\Desktop\\Development\\GitHub\\EDTracking\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1099969\\OneDrive - Jabil\\Desktop\\Development_Project\\Web\\GitHub\\EDTracking\\API\\API.csproj": {
+    "C:\\Users\\1099969\\Desktop\\Development\\GitHub\\EDTracking\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1099969\\OneDrive - Jabil\\Desktop\\Development_Project\\Web\\GitHub\\EDTracking\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\1099969\\Desktop\\Development\\GitHub\\EDTracking\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\1099969\\OneDrive - Jabil\\Desktop\\Development_Project\\Web\\GitHub\\EDTracking\\API\\API.csproj",
+        "projectPath": "C:\\Users\\1099969\\Desktop\\Development\\GitHub\\EDTracking\\API\\API.csproj",
         "packagesPath": "C:\\Users\\1099969\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1099969\\OneDrive - Jabil\\Desktop\\Development_Project\\Web\\GitHub\\EDTracking\\API\\obj\\",
+        "outputPath": "C:\\Users\\1099969\\Desktop\\Development\\GitHub\\EDTracking\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -31,8 +31,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\1099969\\OneDrive - Jabil\\Desktop\\Development_Project\\Web\\GitHub\\EDTracking\\SharedObjects\\SharedObjects.csproj": {
-                "projectPath": "C:\\Users\\1099969\\OneDrive - Jabil\\Desktop\\Development_Project\\Web\\GitHub\\EDTracking\\SharedObjects\\SharedObjects.csproj"
+              "C:\\Users\\1099969\\Desktop\\Development\\GitHub\\EDTracking\\SharedObjects\\SharedObjects.csproj": {
+                "projectPath": "C:\\Users\\1099969\\Desktop\\Development\\GitHub\\EDTracking\\SharedObjects\\SharedObjects.csproj"
               }
             }
           }
@@ -122,15 +122,20 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.214\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.409\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\1099969\\OneDrive - Jabil\\Desktop\\Development_Project\\Web\\GitHub\\EDTracking\\SharedObjects\\SharedObjects.csproj": {
+    "C:\\Users\\1099969\\Desktop\\Development\\GitHub\\EDTracking\\SharedObjects\\SharedObjects.csproj": {
       "restore": {
-        "projectUniqueName": "C:\\Users\\1099969\\OneDrive - Jabil\\Desktop\\Development_Project\\Web\\GitHub\\EDTracking\\SharedObjects\\SharedObjects.csproj",
+        "projectUniqueName": "C:\\Users\\1099969\\Desktop\\Development\\GitHub\\EDTracking\\SharedObjects\\SharedObjects.csproj",
         "projectName": "SharedObjects",
-        "projectPath": "C:\\Users\\1099969\\OneDrive - Jabil\\Desktop\\Development_Project\\Web\\GitHub\\EDTracking\\SharedObjects\\SharedObjects.csproj"
+        "projectPath": "C:\\Users\\1099969\\Desktop\\Development\\GitHub\\EDTracking\\SharedObjects\\SharedObjects.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
       },
       "frameworks": {
         "net472": {}
